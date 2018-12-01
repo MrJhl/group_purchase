@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+	<!-- <property name="LOG_HOME" value="/文件/java/log" /> -->
+	<property name="LOG_HOME" value="/shop/group/log" />
+ 
+	<!-- 控制台输出 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 按照每天生成日志文件 -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/grouplog.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<fileNamePattern>${LOG_HOME}/grouplog.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<!--日志文件保留天数 -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{80} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+ 
+	<logger name="jdbc.sqlonly" level="OFF" />
+	<logger name="jdbc.resultsettable" level="OFF" />
+	<logger name="jdbc.sqltiming" level="error" /> 
+	<logger name="jdbc.audit" level="error" />
+	<logger name="jdbc.connection" level="error" />
+	<logger name="jdbc.resultset" level="error" />
+	
+	<!-- 日志输出级别 -->
+	<root level="info"><!-- ERROR、WARN、INFO、DEBUG -->
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+</configuration>
