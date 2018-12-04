@@ -1,6 +1,6 @@
 # group_purchase
 #拉取代码
-git clone 地址
+git clone https://github.com/MrJhl/group_purchase.git
 
 #提交代码
 git add .
