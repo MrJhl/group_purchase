@@ -1,6 +1,8 @@
 package com.group.shop.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.group.shop.entity.User;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
