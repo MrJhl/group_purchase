@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.group.shop.mapper.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.group.shop.entity.Goods" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="describe" property="describe" jdbcType="VARCHAR" />
+    <result column="standard" property="standard" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="index" property="index" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, name, describe, standard, price, index, create_time, last_edit_time
+  </sql>
+
+  <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_goods
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Integer" >
+    delete from tb_goods
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertGoods" parameterType="com.group.shop.entity.Goods" >
+    insert into tb_goods (id, name, describe, 
+      standard, price, index, 
+      create_time, last_edit_time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, 
+      #{standard,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{index,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.group.shop.entity.Goods" >
+    insert into tb_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="describe != null" >
+        describe,
+      </if>
+      <if test="standard != null" >
+        standard,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="index != null" >
+        index,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="describe != null" >
+        #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null" >
+        #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="index != null" >
+        #{index,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.group.shop.entity.Goods" >
+    update tb_goods
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="describe != null" >
+        describe = #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null" >
+        standard = #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="index != null" >
+        index = #{index,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateGoods" parameterType="com.group.shop.entity.Goods" >
+    update tb_goods
+    set name = #{name,jdbcType=VARCHAR},
+      describe = #{describe,jdbcType=VARCHAR},
+      standard = #{standard,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      index = #{index,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

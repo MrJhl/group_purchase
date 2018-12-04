@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.group.shop.mapper.UserShopMapper" >
+  <resultMap id="BaseResultMap" type="com.group.shop.entity.UserShop" >
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    user_id, shop_id
+  </sql>
+
+  <insert id="insertUserShop" parameterType="com.group.shop.entity.UserShop" >
+    insert into tb_user_shop (user_id, shop_id)
+    values (#{userId,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.group.shop.entity.UserShop" >
+    insert into tb_user_shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

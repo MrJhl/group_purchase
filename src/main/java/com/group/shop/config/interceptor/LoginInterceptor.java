@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.group.shop.entity.User;
 import com.group.shop.utils.RedisUtil;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 

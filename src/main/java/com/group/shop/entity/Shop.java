@@ -2,18 +2,18 @@ package com.group.shop.entity;
 
 import java.util.Date;
 
-public class User {
+public class Shop {
     private Integer id;
 
-    private String openId;
+    private String name;
 
-    private String username;
+    private String num;
 
-    private Boolean gender;
+    private String address;
 
     private String phone;
 
-    private String address;
+    private String email;
 
     private Date createTime;
 
@@ -27,28 +27,28 @@ public class User {
         this.id = id;
     }
 
-    public String getOpenId() {
-        return openId;
+    public String getName() {
+        return name;
     }
 
-    public void setOpenId(String openId) {
-        this.openId = openId == null ? null : openId.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
-    public String getUsername() {
-        return username;
+    public String getNum() {
+        return num;
     }
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setNum(String num) {
+        this.num = num == null ? null : num.trim();
     }
 
-    public Boolean getGender() {
-        return gender;
+    public String getAddress() {
+        return address;
     }
 
-    public void setGender(Boolean gender) {
-        this.gender = gender;
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 
     public String getPhone() {
@@ -59,12 +59,12 @@ public class User {
         this.phone = phone == null ? null : phone.trim();
     }
 
-    public String getAddress() {
-        return address;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
     public Date getCreateTime() {
