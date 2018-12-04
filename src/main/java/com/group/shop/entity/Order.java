@@ -13,7 +13,9 @@ public class Order {
 
     private Integer total;
 
-    private Boolean status;
+    private Integer status;
+
+    private String remark;
 
     private Date createTime;
 
@@ -47,6 +49,14 @@ public class Order {
         return shopId;
     }
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     public void setShopId(Integer shopId) {
         this.shopId = shopId;
     }
@@ -59,11 +69,11 @@ public class Order {
         this.total = total;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

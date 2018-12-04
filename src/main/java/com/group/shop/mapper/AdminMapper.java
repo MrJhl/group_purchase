@@ -37,4 +37,11 @@ public interface AdminMapper {
      * @return
      */
     int updateAdmin(Admin admin);
+
+    /**
+     * 查询管理员
+     * @param admin
+     * @return
+     */
+    Admin queryAdminByAdmin(Admin admin);
 }

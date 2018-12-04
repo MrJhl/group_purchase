@@ -167,4 +167,21 @@
       last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryAdminByAdmin" parameterType="com.group.shop.entity.Admin" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_admin
+    <where>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="username != null" >
+        and username = #{username,jdbcType=VARCHAR}
+      </if>
+      <if test="password != null" >
+        and password = #{password,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
 </mapper>

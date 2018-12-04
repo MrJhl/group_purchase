@@ -9,7 +9,7 @@ public class User {
 
     private String username;
 
-    private Boolean gender;
+    private Integer gender;
 
     private String phone;
 
@@ -43,11 +43,11 @@ public class User {
         this.username = username == null ? null : username.trim();
     }
 
-    public Boolean getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(Boolean gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 

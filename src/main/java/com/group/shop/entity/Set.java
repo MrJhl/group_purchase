@@ -10,7 +10,9 @@ public class Set {
 
     private String describe;
 
-    private BigDecimal price;
+    private Float salePrice;
+
+    private Float price;
 
     private Integer total;
 
@@ -46,11 +48,11 @@ public class Set {
         this.describe = describe == null ? null : describe.trim();
     }
 
-    public BigDecimal getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -88,6 +90,14 @@ public class Set {
 
     public Date getLastEditTime() {
         return lastEditTime;
+    }
+
+    public Float getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(Float salePrice) {
+        this.salePrice = salePrice;
     }
 
     public void setLastEditTime(Date lastEditTime) {

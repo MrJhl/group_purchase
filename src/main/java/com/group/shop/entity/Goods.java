@@ -12,7 +12,7 @@ public class Goods {
 
     private String standard;
 
-    private BigDecimal price;
+    private Float price;
 
     private Integer index;
 
@@ -52,11 +52,11 @@ public class Goods {
         this.standard = standard == null ? null : standard.trim();
     }
 
-    public BigDecimal getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

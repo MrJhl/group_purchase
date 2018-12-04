@@ -13,13 +13,13 @@ public class Admin {
 
     private String email;
 
-    private Boolean gender;
+    private Integer gender;
 
     private String realName;
 
-    private Boolean userStatus;
+    private Integer userStatus;
 
-    private Boolean userType;
+    private Integer userType;
 
     private Date createTime;
 
@@ -65,11 +65,11 @@ public class Admin {
         this.email = email == null ? null : email.trim();
     }
 
-    public Boolean getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(Boolean gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
@@ -81,19 +81,19 @@ public class Admin {
         this.realName = realName == null ? null : realName.trim();
     }
 
-    public Boolean getUserStatus() {
+    public Integer getUserStatus() {
         return userStatus;
     }
 
-    public void setUserStatus(Boolean userStatus) {
+    public void setUserStatus(Integer userStatus) {
         this.userStatus = userStatus;
     }
 
-    public Boolean getUserType() {
+    public Integer getUserType() {
         return userType;
     }
 
-    public void setUserType(Boolean userType) {
+    public void setUserType(Integer userType) {
         this.userType = userType;
     }
 

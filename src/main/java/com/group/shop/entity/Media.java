@@ -7,7 +7,7 @@ public class Media {
 
     private String url;
 
-    private Boolean type;
+    private Integer type;
 
     private Integer commonId;
 
@@ -33,11 +33,11 @@ public class Media {
         this.url = url == null ? null : url.trim();
     }
 
-    public Boolean getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
