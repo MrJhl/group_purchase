@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, describe, standard, price, index, create_time, last_edit_time
+    id, name, `describe`, standard, price,  `index`, create_time, last_edit_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.group.shop.entity.TbGoodsExample" >
     select
