@@ -18,7 +18,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Aspect
 @Component
 public class ControllerLogAspect {
-
+  
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     //用于计算请求的时间间隔

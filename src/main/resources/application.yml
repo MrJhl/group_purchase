@@ -11,9 +11,9 @@ spring:
   #Redis配置
   redis:
     database: 0 # Redis数据库索引（默认为0）
-    host: 47.92.23.43  # Redis服务器地址
+    host: 127.0.0.1  # Redis服务器地址
     port: 6379 # Redis服务器连接端口
-    password: ycbus19931011 # Redis服务器连接密码（默认为空）
+    #password: ycbus19931011 # Redis服务器连接密码（默认为空）
     jedis:
       pool:
         max-wait: -1  # 连接池最大阻塞等待时间（使用负值表示没有限制）
@@ -29,9 +29,10 @@ spring:
 
   #数据库配置
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/group_purchase?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://120.79.218.226:3306/shop?useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: Jhl090201.
+   # password: Jhl090201.
+    password: 123456
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 
@@ -44,6 +45,16 @@ spring:
     multipart:
       max-file-size: 20MB
       max-request-size: 20MB
+      
+mybatis:
+  #指向实体类包路径
+  type-aliases-package: com.group.shop.entity
+  # mapper xml 文件地址
+  mapper-locations: classpath:mapper/*.xml
+  #检查mybatis 配置是否存在，一般命名为mybatis-comfig.xml
+  check-config-location: true
+  #执行模式。默认是SIMPLE
+  executor-type: simple 
 
 #分页设置
 pagehelper:

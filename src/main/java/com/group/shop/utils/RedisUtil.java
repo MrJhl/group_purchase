@@ -15,17 +15,17 @@ public class RedisUtil {
 
     private static String phoneToken;
 
-    @Value("${phone.token.cookie.name}")
-    public void setPhoneToken(String phoneToken) {
-        RedisUtil.phoneToken = phoneToken;
-    }
-
+//    @Value("${phone.token.cookie.name}")
+//    public void setPhoneToken(String phoneToken) {
+//        RedisUtil.phoneToken = phoneToken;
+//    }
+//
     private static String tokenInfo;
-
-    @Value("${token.cookie.name}")
-    public void setTokenInfo(String tokenInfo) {
-        RedisUtil.tokenInfo = tokenInfo;
-    }
+//
+//    @Value("${token.cookie.name}")
+//    public void setTokenInfo(String tokenInfo) {
+//        RedisUtil.tokenInfo = tokenInfo;
+//    }
 
     /**
      * 通过redis获取用户信息
