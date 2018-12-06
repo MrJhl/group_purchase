@@ -67,4 +67,10 @@ pagehelper:
 logging:
   level:
     com.example.strobe.mapper: trace
-
+    
+---
+web:
+  upload-path: C:/Users/ASUS/Desktop/Photo/
+multipart:
+  maxRequestSize: 50Mb
+  maxFileSize: 50Mb
