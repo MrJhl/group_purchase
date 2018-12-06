@@ -29,7 +29,7 @@ spring:
 
   #数据库配置
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/group_purchase?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://39.108.235.163:3306/group_purchase?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: Jhl090201.
     driver-class-name: com.mysql.jdbc.Driver
@@ -44,6 +44,11 @@ spring:
     multipart:
       max-file-size: 20MB
       max-request-size: 20MB
+
+##Mybatis配置
+mybatis:
+  type-aliases-package: com.group.shop.entity
+  mapper-locations: classpath:mapper/*.xml
 
 #分页设置
 pagehelper:

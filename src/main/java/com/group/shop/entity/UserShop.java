@@ -1,5 +1,8 @@
 package com.group.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class UserShop {
     private Integer userId;
 

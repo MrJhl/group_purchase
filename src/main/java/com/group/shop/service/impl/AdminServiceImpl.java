@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -31,15 +32,17 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public LoginInfo login(Admin admin) {
-        admin.setPassword(MD5Util.MD5(admin.getPhone()));
+        String pwd = MD5Util.MD5(admin.getPassword());
         Admin ad;
         try {
-            ad = adminMapper.queryAdminByAdmin(admin);
+            ad = adminMapper.queryAdminByName(admin.getUsername ());
         }catch (Exception e){
             log.error(e.getMessage());
             throw new GirlException(ResultEnum.SYS_EXCEPTION);
         }
-        if(ad == null || ad.getUserStatus() == 0){
+        if(ad == null){
+            return null;
+        }else if(!ad.getPassword().equals(pwd)) {
             return null;
         }else{
             String token = JwtTokenUtil.createToken(ad.getUsername(),"",true);
@@ -52,7 +55,7 @@ public class AdminServiceImpl implements AdminService {
             loginInfo.setToken(token);
             loginInfo.setRealName(ad.getRealName());
             loginInfo.setUsername(ad.getUsername());
-            redisTemplate.opsForValue().set(token,JSON.toJSONString(loginInfo),Constant.TOKEN_EXIST_TIME, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set(Constant.PC_TOKEN_REDIS + ":" + token,JSON.toJSONString(loginInfo),Constant.TOKEN_EXIST_TIME, TimeUnit.SECONDS);
             return loginInfo;
         }
     }
@@ -64,5 +67,41 @@ public class AdminServiceImpl implements AdminService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int insertAdmin(Admin admin) {
+        Admin ad;
+        try {
+            ad = adminMapper.queryAdminByName(admin.getUsername());
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw new GirlException(ResultEnum.SYS_EXCEPTION);
+        }
+        if(ad != null){
+            return -1;
+        }
+        admin.setPassword(MD5Util.MD5(admin.getPassword()));
+        admin.setCreateTime(new Date());
+        admin.setLastEditTime(new Date());
+        admin.setUserStatus(0);
+        int insertNum;
+        try {
+            insertNum = adminMapper.insertAdmin(admin);
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw new GirlException(ResultEnum.SYS_EXCEPTION);
+        }
+        return insertNum;
+    }
+
+    @Override
+    public int updateAdmin(Admin admin) {
+        return 0;
+    }
+
+    @Override
+    public int deleteAdmin(Integer id) {
+        return 0;
     }
 }

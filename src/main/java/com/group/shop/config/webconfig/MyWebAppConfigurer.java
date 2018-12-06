@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.group.shop.config.interceptor.LoginInterceptor;
 
-@Configuration
+//@Configuration
 public class MyWebAppConfigurer implements WebMvcConfigurer{
 
     /**
@@ -41,16 +41,7 @@ public class MyWebAppConfigurer implements WebMvcConfigurer{
         loginIR.addPathPatterns(interceptPath);
 
         /** 不拦截部分 **/
-        loginIR.excludePathPatterns("/static/**");
-        loginIR.excludePathPatterns("/page/login");
-        loginIR.excludePathPatterns("/user/logout");
-        loginIR.excludePathPatterns("/goodsshop/goodslist/**");
-        List<String> patterns = new ArrayList<>();
-        patterns.add("/user/loginSys");
-        patterns.add("/user/phonelogin");
-        patterns.add("/cash/**");
-        patterns.add("/user/token");
-        loginIR.excludePathPatterns(patterns);
+        loginIR.excludePathPatterns("/admin/login");
     }
 
 }

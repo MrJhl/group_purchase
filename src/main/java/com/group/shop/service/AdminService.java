@@ -18,4 +18,25 @@ public interface AdminService {
      * @return
      */
     boolean TokenLogin(String token);
+
+    /**
+     * 插入管理员
+     * @param admin
+     * @return
+     */
+    int insertAdmin(Admin admin);
+
+    /**
+     * 更新管理员
+     * @param admin
+     * @return
+     */
+    int updateAdmin(Admin admin);
+
+    /**
+     * 删除管理员
+     * @param id
+     * @return
+     */
+    int deleteAdmin(Integer id);
 }

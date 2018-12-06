@@ -44,4 +44,11 @@ public interface AdminMapper {
      * @return
      */
     Admin queryAdminByAdmin(Admin admin);
+
+    /**
+     * 根据名字获取管理员
+     * @param username
+     * @return
+     */
+    Admin queryAdminByName(String username);
 }

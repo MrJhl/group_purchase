@@ -1,7 +1,10 @@
 package com.group.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Media {
     private Integer id;
 
