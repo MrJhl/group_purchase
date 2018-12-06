@@ -55,10 +55,6 @@ mybatis:
   #执行模式。默认是SIMPLE
   executor-type: simple 
 
-##Mybatis配置
-mybatis:
-  type-aliases-package: com.group.shop.entity
-  mapper-locations: classpath:mapper/*.xml
 
 #分页设置
 pagehelper:
