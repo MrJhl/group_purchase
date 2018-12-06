@@ -44,6 +44,16 @@ spring:
     multipart:
       max-file-size: 20MB
       max-request-size: 20MB
+      
+mybatis:
+  #指向实体类包路径
+  type-aliases-package: com.group.shop.entity
+  # mapper xml 文件地址
+  mapper-locations: classpath:mapper/*.xml
+  #检查mybatis 配置是否存在，一般命名为mybatis-comfig.xml
+  check-config-location: true
+  #执行模式。默认是SIMPLE
+  executor-type: simple 
 
 ##Mybatis配置
 mybatis:

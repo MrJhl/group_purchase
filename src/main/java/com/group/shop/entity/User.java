@@ -21,6 +21,12 @@ public class User {
     private Date createTime;
 
     private Date lastEditTime;
+    
+    private Integer userStatics;
+    
+    public Integer getUserStatus() {
+    	return userStatics;
+    }
 
     public Integer getId() {
         return id;
