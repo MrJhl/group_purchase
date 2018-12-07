@@ -19,10 +19,6 @@ public class Set {
 
     private Integer total;
 
-    private Date startTime;
-
-    private Date endTime;
-
     private Date createTime;
 
     private Date lastEditTime;
@@ -65,22 +61,6 @@ public class Set {
 
     public void setTotal(Integer total) {
         this.total = total;
-    }
-
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
     }
 
     public Date getCreateTime() {

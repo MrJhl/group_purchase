@@ -12,7 +12,7 @@
   </resultMap>
 
   <sql id="Base_Column_List" >
-    id, url, type, common_id, table, create_time, last_edit_time
+    id, url, type, common_id, `table`, create_time, last_edit_time
   </sql>
 
   <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -28,13 +28,13 @@
 
   <insert id="insertMedia" parameterType="com.group.shop.entity.Media" >
     insert into tb_media (id, url, type, common_id, 
-      table, create_time, last_edit_time
+      `table`, create_time, last_edit_time
       )
     values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, #{commonId,jdbcType=INTEGER}, 
       #{table,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.group.shop.entity.Media" >
+  <insert id="insertSelective" parameterType="com.group.shop.entity.Media"  useGeneratedKeys="true" keyProperty="id">
     insert into tb_media
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -50,7 +50,7 @@
         common_id,
       </if>
       <if test="table != null" >
-        table,
+        `table`,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -113,9 +113,21 @@
     set url = #{url,jdbcType=VARCHAR},
       type = #{type,jdbcType=BIT},
       common_id = #{commonId,jdbcType=INTEGER},
-      table = #{table,jdbcType=INTEGER},
+      `table` = #{table,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+    <insert id="insertOrderBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+  	insert into tb_media(url, type, `table`, create_time, last_edit_time)
+  	values
+  		<foreach collection="list" item="record" separator=",">
+  			(#{record.url,jdbcType=VARCHAR},
+  			 #{record.type,jdbcType=BIT},
+  			 #{record.table,jdbcType=INTEGER},
+  			 #{record.createTime,jdbcType=TIMESTAMP},
+  			 #{record.lastEditTime,jdbcType=TIMESTAMP})
+  		</foreach>
+  </insert>
 </mapper>

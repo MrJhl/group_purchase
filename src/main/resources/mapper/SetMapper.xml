@@ -6,15 +6,14 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="describe" property="describe" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="sale_price" property="salePrice" jdbcType="DECIMAL" />
     <result column="total" property="total" jdbcType="INTEGER" />
-    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
-    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
   </resultMap>
 
   <sql id="Base_Column_List" >
-    id, name, describe, price, total, start_time, end_time, create_time, last_edit_time
+    id, name, `describe`, price, sale_price,total, create_time, last_edit_time
   </sql>
 
   <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -30,15 +29,13 @@
 
   <insert id="insertSet" parameterType="com.group.shop.entity.Set" >
     insert into tb_set (id, name, describe, 
-      price, total, start_time, 
-      end_time, create_time, last_edit_time
+      price, total, create_time, last_edit_time
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DECIMAL}, #{total,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP}
+      #{price,jdbcType=DECIMAL}, #{total,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.group.shop.entity.Set" >
+  <insert id="insertSelective" parameterType="com.group.shop.entity.Set"  useGeneratedKeys="true" keyProperty="id">
     insert into tb_set
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -48,20 +45,18 @@
         name,
       </if>
       <if test="describe != null" >
-        describe,
+        `describe`,
       </if>
       <if test="price != null" >
         price,
       </if>
+      <if test="salePrice != null" >
+        sale_price,
+      </if>
       <if test="total != null" >
         total,
       </if>
-      <if test="startTime != null" >
-        start_time,
-      </if>
-      <if test="endTime != null" >
-        end_time,
-      </if>
+     
       <if test="createTime != null" >
         create_time,
       </if>
@@ -82,14 +77,11 @@
       <if test="price != null" >
         #{price,jdbcType=DECIMAL},
       </if>
+      <if test="salePrice != null" >
+        #{salePrice,jdbcType=DECIMAL},
+      </if>
       <if test="total != null" >
         #{total,jdbcType=INTEGER},
-      </if>
-      <if test="startTime != null" >
-        #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        #{endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -112,14 +104,11 @@
       <if test="price != null" >
         price = #{price,jdbcType=DECIMAL},
       </if>
+      <if test="salePrice != null" >
+        price = #{salePrice,jdbcType=DECIMAL},
+      </if>
       <if test="total != null" >
         total = #{total,jdbcType=INTEGER},
-      </if>
-      <if test="startTime != null" >
-        start_time = #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        end_time = #{endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -130,5 +119,5 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-
+	
 </mapper>
