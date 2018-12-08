@@ -120,12 +120,11 @@
   </update>
   
     <insert id="insertOrderBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-  	insert into tb_media(url, type, `table`, create_time, last_edit_time)
+  	insert into tb_media(url, type, create_time, last_edit_time)
   	values
   		<foreach collection="list" item="record" separator=",">
   			(#{record.url,jdbcType=VARCHAR},
   			 #{record.type,jdbcType=BIT},
-  			 #{record.table,jdbcType=INTEGER},
   			 #{record.createTime,jdbcType=TIMESTAMP},
   			 #{record.lastEditTime,jdbcType=TIMESTAMP})
   		</foreach>

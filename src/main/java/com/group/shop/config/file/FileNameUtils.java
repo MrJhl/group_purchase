@@ -1,5 +1,7 @@
 package com.group.shop.config.file;
 
+import java.util.UUID;
+
 public class FileNameUtils {
 
     /**
@@ -17,7 +19,7 @@ public class FileNameUtils {
      * @return
      */
     public static String getFileName(String fileOriginName){
-        return UUIDUtils.getUUID() + FileNameUtils.getSuffix(fileOriginName);
+        return UUID.randomUUID().toString().replace("-", "") + FileNameUtils.getSuffix(fileOriginName);
     }
 
 }
