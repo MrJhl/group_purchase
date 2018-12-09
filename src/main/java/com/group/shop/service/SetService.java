@@ -1,8 +1,8 @@
 package com.group.shop.service;
 
-import java.util.List;
 
 import com.group.shop.entity.Set;
+import com.group.shop.vo.SetInfo;
 
 public interface SetService {
 
@@ -10,7 +10,7 @@ public interface SetService {
 
     int insertSet(Set record);
 
-    Boolean insertSelective(Set record, List<Integer> mediaId);
+    Boolean insertSelective(SetInfo record);
 
     Set queryById(Integer id);
 

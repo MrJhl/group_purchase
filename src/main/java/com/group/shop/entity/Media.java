@@ -12,10 +12,6 @@ public class Media {
 
     private Integer type;
 
-    private Integer commonId;
-
-    private Integer table;
-
     private Date createTime;
 
     private Date lastEditTime;
@@ -42,22 +38,6 @@ public class Media {
 
     public void setType(Integer type) {
         this.type = type;
-    }
-
-    public Integer getCommonId() {
-        return commonId;
-    }
-
-    public void setCommonId(Integer commonId) {
-        this.commonId = commonId;
-    }
-
-    public Integer getTable() {
-        return table;
-    }
-
-    public void setTable(Integer table) {
-        this.table = table;
     }
 
     public Date getCreateTime() {

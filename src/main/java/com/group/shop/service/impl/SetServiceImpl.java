@@ -1,19 +1,27 @@
 package com.group.shop.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.group.shop.common.GirlException;
+import com.group.shop.common.ResultEnum;
 import com.group.shop.entity.Set;
 import com.group.shop.entity.SetMedia;
 import com.group.shop.mapper.SetMapper;
 import com.group.shop.mapper.SetMediaMapper;
 import com.group.shop.service.SetService;
+import com.group.shop.vo.SetInfo;
 @Service("SetService")
 public class SetServiceImpl implements SetService {
-
+	
+	Logger log = LoggerFactory.getLogger(SetService.class);
+	
 	@Autowired
 	private SetMapper setMapper;
 	@Autowired
@@ -32,20 +40,33 @@ public class SetServiceImpl implements SetService {
 	}
 
 	@Override
-	public Boolean insertSelective(Set record,List<Integer> mediaIds) {
-		int snum = setMapper.insertSelective(record);
-		if(snum == 1) {
-			List<SetMedia> setMedias = new ArrayList<>();
-			for (int mediaId : mediaIds) {
-				SetMedia setMedia = new SetMedia();
-				setMedia.setSetId(record.getId());
-				setMedia.setMediaId(mediaId);
-				setMedias.add(setMedia);
-			}
-			return setMediaMapper.insertOrderBatch(setMedias)>0 ?Boolean.TRUE:Boolean.FALSE;
-			
-		}else {
-			return false;
+	public Boolean insertSelective(SetInfo record) {
+		   Set set = new Set();
+	 	   set.setName(record.getName());
+	 	   set.setDescribe(record.getDescribe());
+	 	   set.setPrice(record.getPrice());
+	 	   set.setSalePrice(record.getSalePrice());
+	 	   set.setTotal(0);
+	 	   set.setCreateTime(new Date());
+	 	   set.setLastEditTime(new Date());
+	 	   try {
+	 			if(setMapper.insertSelective(set) == 1) {
+	 				List<Integer> mediaIds = record.getMediaIds();
+	 				List<SetMedia> setMedias = new ArrayList<>();
+	 				for (int mediaId : mediaIds) {
+	 					SetMedia setMedia = new SetMedia();
+	 					setMedia.setSetId(set.getId());
+	 					setMedia.setMediaId(mediaId);
+	 					setMedias.add(setMedia);
+	 				}
+	 				return setMediaMapper.insertOrderBatch(setMedias)>0 ?Boolean.TRUE:Boolean.FALSE;
+	 				
+	 			}else {
+	 				return Boolean.FALSE;
+	 			}
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			throw new GirlException(ResultEnum.SYS_EXCEPTION);
 		}
 		
 	}

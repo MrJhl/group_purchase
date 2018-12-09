@@ -1,6 +1,5 @@
 package com.group.shop.controller;
 
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +14,7 @@ import com.group.shop.common.CodeMsg;
 import com.group.shop.common.Result;
 import com.group.shop.entity.Goods;
 import com.group.shop.service.GoodsService;
+import com.group.shop.vo.GoodsInfo;
 
 /**
  * @deprecated 商品操作控制层
@@ -23,14 +23,14 @@ import com.group.shop.service.GoodsService;
  */
 
 @RestController
-@RequestMapping(value = "/goodsshop")
+@RequestMapping(value = "/goods")
 public class GoodsController {
 	
 	@Autowired
 	private GoodsService goodsService;
 	
 	//根据goodsId查询单个商品
-	@GetMapping(value = "/goodslist/{goodsId}",produces = {"application/json;charset=UTF-8"})
+	@GetMapping(value = "/{goodsId}",produces = {"application/json;charset=UTF-8"})
 	public Result<Object> getGoodsInfo(@PathVariable int goodsId){
 		Goods goods = goodsService.queryById(goodsId);
 		if(goods != null) {
@@ -41,9 +41,9 @@ public class GoodsController {
 	}
 	
 	//根据goods添加单个商品信息
-	@PostMapping(value = "/goodslist",produces = {"application/json;charset=UTF-8"})
-	public Result<Object> insertGoods(@RequestBody Goods goods){
-			if(goodsService.insertSelective(goods)){
+	@PostMapping(value = "",produces = {"application/json;charset=UTF-8"})
+	public Result<Object> insertGoods(@RequestBody GoodsInfo goodsInfo){
+			if(goodsService.insertSelective(goodsInfo)){
 	            return Result.success(CodeMsg.SUCCESS);
 	        }else{
 	            return Result.error(CodeMsg.FAIL);

@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.group.shop.common.Result;
 import com.group.shop.entity.Set;
 import com.group.shop.service.SetService;
-
+import com.group.shop.vo.SetInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,17 +50,9 @@ public class SetController {
     */
     @SuppressWarnings("unchecked")
     @PostMapping(value = "",produces = {"application/json;charset=UTF-8"})
-    public Result<Object> loginSystem(@RequestBody Map<String, Object> data){
-	List<Integer> mediaIds =(ArrayList<Integer>) data.get("mediaIds");
-       Set set = new Set();
- 	   set.setName(data.get("setName").toString());
- 	   set.setDescribe(data.get("setDescribe").toString());
- 	   set.setPrice(Float.valueOf(data.get("setPrice").toString()));
- 	   set.setSalePrice(Float.valueOf(data.get("setSalePrice").toString()));
- 	   set.setTotal(0);
- 	   set.setCreateTime(new Date());
- 	   set.setLastEditTime(new Date());
- 	   Boolean isInsert = setService.insertSelective(set, mediaIds);
+    public Result<Object> loginSystem(@RequestBody SetInfo setInfo){
+      
+ 	   Boolean isInsert = setService.insertSelective(setInfo);
         if(isInsert){
             return Result.success(true);
         }else{

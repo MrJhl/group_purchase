@@ -1,6 +1,7 @@
 package com.group.shop.service;
 
 import com.group.shop.entity.Goods;
+import com.group.shop.vo.GoodsInfo;
 
 public interface GoodsService {
 
@@ -8,7 +9,7 @@ public interface GoodsService {
 	
 	Boolean insertGoodsByGoods(Goods goods);
 	
-	Boolean insertSelective(Goods record);
+	Boolean insertSelective(GoodsInfo record);
 	
 	Boolean updateByPrimarykeySelective(Goods goods);
 	
