@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,16 +35,19 @@ import com.group.shop.service.MediaService;
 @RequestMapping(value = "/media")
 public class MediaController {
 	
+	
 	@Autowired
 	private MediaService mediaService;
+	@Value("${web.upload-path}")
+	private String path;
 	
 	//上传照片
 	@PostMapping(value = "",produces = {"application/json;charset=UTF-8"})
-	public Result<List<Integer>> getGoodsInfo(@RequestParam(name = "fileName") MultipartFile file[]){
+	public Result<List<Integer>> insertPhotoAndUrl(@RequestParam(name = "fileName") MultipartFile file[]){
 		List<String> url = new ArrayList<>();
        // 显示图片
        for (MultipartFile multipartFile : file) {
-    	   String photouri = FileUtils.saveImg(multipartFile);
+    	   String photouri = FileUtils.saveImg(multipartFile,path);
     	   url.add(photouri);
 	}
        List<Integer> mediaIds = mediaService.insertOrderBatch(url);

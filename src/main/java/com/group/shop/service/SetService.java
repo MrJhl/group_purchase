@@ -1,8 +1,11 @@
 package com.group.shop.service;
 
 
+import java.util.List;
+
 import com.group.shop.entity.Set;
 import com.group.shop.vo.SetInfo;
+import com.group.shop.vo.SetUrl;
 
 public interface SetService {
 
@@ -15,6 +18,8 @@ public interface SetService {
     Set queryById(Integer id);
 
     int updateSet(Set set);
+    
+    SetUrl querySetInfoAndimgById(Integer id);
     
 	
 }

@@ -12,6 +12,12 @@
     <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
   </resultMap>
 
+  <resultMap id="SetUrlResultMap" type="com.group.shop.vo.SetUrl" extends="BaseResultMap">
+   <collection property="url" ofType="java.lang.String">
+   	<result column="url" property="url"/>
+   </collection>
+  </resultMap>
+	
   <sql id="Base_Column_List" >
     id, name, `describe`, price, sale_price,total, create_time, last_edit_time
   </sql>
@@ -119,5 +125,10 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-	
+	<select id="querySetInfoAndimgById" resultMap="SetUrlResultMap" parameterType="java.lang.Integer" >
+	SELECT s.*,m.url from tb_set s 
+	JOIN tb_set_media sm ON s.id = sm.set_id
+	JOIN tb_media m ON m.id = sm.media_id
+    WHERE s.id = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

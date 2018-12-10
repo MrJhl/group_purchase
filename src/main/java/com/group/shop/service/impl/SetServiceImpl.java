@@ -17,6 +17,8 @@ import com.group.shop.mapper.SetMapper;
 import com.group.shop.mapper.SetMediaMapper;
 import com.group.shop.service.SetService;
 import com.group.shop.vo.SetInfo;
+import com.group.shop.vo.SetUrl;
+import com.mysql.cj.protocol.Message;
 @Service("SetService")
 public class SetServiceImpl implements SetService {
 	
@@ -81,6 +83,16 @@ public class SetServiceImpl implements SetService {
 	public int updateSet(Set set) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public SetUrl querySetInfoAndimgById(Integer id) {
+		try {
+			return setMapper.querySetInfoAndimgById(id);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			throw new GirlException(ResultEnum.SYS_EXCEPTION);
+		}
 	}
 
 }
