@@ -34,12 +34,6 @@ public class SetController {
 	@Autowired
 	private SetService setService; 
 	
-    private final ResourceLoader resourceLoader;
-
-    @Autowired
-    public SetController(ResourceLoader resourceLoader) {
-        this.resourceLoader = resourceLoader;
-    }
 
 //    @Value("${web.upload-path}")
 //    private String path;
@@ -51,7 +45,6 @@ public class SetController {
     * @return
      * @throws IOException 
     */
-    @SuppressWarnings("unchecked")
     @PostMapping(value = "",produces = {"application/json;charset=UTF-8"})
     public Result<Object> loginSystem(@RequestBody SetInfo setInfo){
       
@@ -73,20 +66,6 @@ public class SetController {
 		}
 	}
 
-//    /**
-//     * 显示单张图片
-//     * @return
-//     */
-//    @RequestMapping("show")
-//    public ResponseEntity showPhotos(String fileName){
-//    	fileName = "dc43363c8a704b6ebfb0ac8ef408bfa4.jpg";
-//    	
-//        try {
-//            // 由于是读取本机的文件，file是一定要加上的， path是在application配置文件中的路径
-//            return ResponseEntity.ok(resourceLoader.getResource("file:" + path + fileName));
-//        } catch (Exception e) {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+
 
 }

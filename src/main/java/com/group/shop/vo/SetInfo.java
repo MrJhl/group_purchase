@@ -2,39 +2,28 @@ package com.group.shop.vo;
 
 import java.util.List;
 
-public class SetInfo {
+import com.group.shop.entity.Set;
 
-	private String name;
-	private String describe;
-	private Float price;
-	private Float salePrice;
+public class SetInfo {
+	
+	private Integer shopId;
+	private Set set;
 	private List<Integer> mediaIds;
-	public String getName() {
-		return name;
+
+	public Integer getShopId() {
+		return shopId;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getDescribe() {
-		return describe;
-	}
-	public void setDescribe(String describe) {
-		this.describe = describe;
-	}
-	public Float getPrice() {
-		return price;
-	}
-	public void setPrice(Float price) {
-		this.price = price;
-	}
-	public Float getSalePrice() {
-		return salePrice;
-	}
-	public void setSalePrice(Float salePrice) {
-		this.salePrice = salePrice;
+	public void setShopId(Integer shopId) {
+		this.shopId = shopId;
 	}
 	public List<Integer> getMediaIds() {
 		return mediaIds;
+	}
+	public Set getSet() {
+		return set;
+	}
+	public void setSet(Set set) {
+		this.set = set;
 	}
 	public void setMediaIds(List<Integer> mediaIds) {
 		this.mediaIds = mediaIds;

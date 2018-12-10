@@ -43,11 +43,7 @@ public class SetServiceImpl implements SetService {
 
 	@Override
 	public Boolean insertSelective(SetInfo record) {
-		   Set set = new Set();
-	 	   set.setName(record.getName());
-	 	   set.setDescribe(record.getDescribe());
-	 	   set.setPrice(record.getPrice());
-	 	   set.setSalePrice(record.getSalePrice());
+		   Set set = record.getSet();
 	 	   set.setTotal(0);
 	 	   set.setCreateTime(new Date());
 	 	   set.setLastEditTime(new Date());
