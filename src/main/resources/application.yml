@@ -31,7 +31,7 @@ spring:
   datasource:
     url: jdbc:mysql://39.108.235.163:3306/group_purchase?useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: jhlC403.
+    password: null.
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 
