@@ -51,6 +51,7 @@ public class MyWebAppConfigurer implements WebMvcConfigurer{
         loginIR.excludePathPatterns("/media/*");
         loginIR.excludePathPatterns("/set/*");
         loginIR.excludePathPatterns("/goods/*");
+        loginIR.excludePathPatterns("/order/*");
     }
     
 

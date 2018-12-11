@@ -13,7 +13,12 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
   </resultMap>
-
+  <resultMap id="GoodsUrlResultMap" type="com.group.shop.vo.GoodsUrl" extends="BaseResultMap">
+  	<collection property="url" ofType="java.lang.String">
+  	<result column="url" property="url" jdbcType="VARCHAR"/>
+  	</collection>
+  </resultMap>
+	
   <sql id="Base_Column_List" >
     id, name, `describe`, standard, price, sale_price, `index`, set_id, create_time, last_edit_time
   </sql>
@@ -151,4 +156,10 @@
       last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="queryGoodsInfoAndImgById" resultMap="GoodsUrlResultMap" parameterType="java.lang.Integer">
+  	SELECT g.*,m.url from  tb_goods g
+	LEFT JOIN  tb_goods_media sm ON g.id = sm.goods_id
+	LEFT JOIN tb_media m ON m.id = sm.media_id
+    WHERE g.set_id = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

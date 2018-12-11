@@ -17,6 +17,7 @@ import com.group.shop.mapper.GoodsMapper;
 import com.group.shop.mapper.GoodsMediaMapper;
 import com.group.shop.service.GoodsService;
 import com.group.shop.vo.GoodsInfo;
+import com.group.shop.vo.GoodsUrl;
 
 @Service("GoodsService")
 public class GoodsServiceImpl implements GoodsService {
@@ -41,14 +42,8 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Override
 	public Boolean insertSelective(GoodsInfo record) {
-		Goods goods = new Goods();
-		goods.setName(record.getName());
-		goods.setDescribe(record.getDescribe());
-		goods.setStandard(record.getStandard());
-		goods.setPrice(record.getPrice());
-		goods.setSalePrice(record.getSalePrice());
+		Goods goods = record.getGoods();
 		goods.setIndex(0);
-		goods.setSetId(record.getSetId());
 		goods.setCreateTime(new Date());
 		goods.setLastEditTime(new Date());
 		try {
@@ -86,6 +81,16 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public Boolean deleteById(Integer id) {
 		return goodsMapper.deleteById(id) ==1 ? Boolean.TRUE : Boolean.FALSE;
+	}
+
+	@Override
+	public List<GoodsUrl> querySetInfoAndImgById(Integer id) {
+		try {
+			return goodsMapper.queryGoodsInfoAndImgById(id);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			throw new GirlException(ResultEnum.SYS_EXCEPTION);
+		}
 	}
 
 

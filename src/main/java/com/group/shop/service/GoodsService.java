@@ -1,7 +1,10 @@
 package com.group.shop.service;
 
+import java.util.List;
+
 import com.group.shop.entity.Goods;
 import com.group.shop.vo.GoodsInfo;
+import com.group.shop.vo.GoodsUrl;
 
 public interface GoodsService {
 
@@ -16,4 +19,6 @@ public interface GoodsService {
 	Boolean updateGoods(Goods goods);
 	
 	Boolean deleteById(Integer id);
+	
+	List<GoodsUrl> querySetInfoAndImgById(Integer id);
 }

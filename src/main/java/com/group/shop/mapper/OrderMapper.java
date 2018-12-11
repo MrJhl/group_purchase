@@ -1,6 +1,9 @@
 package com.group.shop.mapper;
 
 import com.group.shop.entity.Order;
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -17,4 +20,6 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order order);
 
     int updateOrder(Order order);
+    
+    List<Order> queryByUserId(Integer id);
 }

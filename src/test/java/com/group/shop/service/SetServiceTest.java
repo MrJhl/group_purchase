@@ -22,7 +22,7 @@ public class SetServiceTest extends ShopApplicationTests{
 	private SetMapper setMapper;
 	@Test
 	public void testInsert() {
-		SetUrl setUrl = setMapper.querySetInfoAndimgById(1);
+		List<SetUrl> setUrl = setMapper.querySetInfoAndImgById(1);
 		System.out.println("#### "+setUrl+" ####");
 		System.out.println("####"+mediaMapper.queryById(1));
 		System.out.println("####"+mediaMapper.queryById(1));

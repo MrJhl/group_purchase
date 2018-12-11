@@ -8,7 +8,7 @@ import java.util.Date;
 public class Order {
     private String number;
 
-    private Integer setId;
+    private Integer goodsId;
 
     private Integer userId;
 
@@ -32,15 +32,15 @@ public class Order {
         this.number = number == null ? null : number.trim();
     }
 
-    public Integer getSetId() {
-        return setId;
-    }
+    public Integer getGoodsId() {
+		return goodsId;
+	}
 
-    public void setSetId(Integer setId) {
-        this.setId = setId;
-    }
+	public void setGoodsId(Integer goodsId) {
+		this.goodsId = goodsId;
+	}
 
-    public Integer getUserId() {
+	public Integer getUserId() {
         return userId;
     }
 

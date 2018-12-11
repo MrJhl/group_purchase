@@ -134,10 +134,11 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-	<select id="querySetInfoAndimgById" resultMap="SetUrlResultMap" parameterType="java.lang.Integer" >
-	SELECT s.*,m.url from tb_set s 
+	<select id="querySetInfoAndImgById" resultMap="SetUrlResultMap" parameterType="java.lang.Integer" >
+	SELECT s.*,m.url from tb_shop_set p
+	JOIN tb_set s ON p.set_id = s.id
 	JOIN tb_set_media sm ON s.id = sm.set_id
 	JOIN tb_media m ON m.id = sm.media_id
-    WHERE s.id = #{id,jdbcType=INTEGER}
+    WHERE p.shop_id = #{id,jdbcType=INTEGER}
   </select>
 </mapper>

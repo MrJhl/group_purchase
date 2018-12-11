@@ -13,8 +13,10 @@ import com.group.shop.common.GirlException;
 import com.group.shop.common.ResultEnum;
 import com.group.shop.entity.Set;
 import com.group.shop.entity.SetMedia;
+import com.group.shop.entity.ShopSet;
 import com.group.shop.mapper.SetMapper;
 import com.group.shop.mapper.SetMediaMapper;
+import com.group.shop.mapper.ShopSetMapper;
 import com.group.shop.service.SetService;
 import com.group.shop.vo.SetInfo;
 import com.group.shop.vo.SetUrl;
@@ -25,9 +27,12 @@ public class SetServiceImpl implements SetService {
 	Logger log = LoggerFactory.getLogger(SetService.class);
 	
 	@Autowired
+	private ShopSetMapper shopSetMapper;
+	@Autowired
 	private SetMapper setMapper;
 	@Autowired
 	private SetMediaMapper setMediaMapper;
+	
 	
 	@Override
 	public int deleteById(Integer id) {
@@ -47,18 +52,26 @@ public class SetServiceImpl implements SetService {
 	 	   set.setTotal(0);
 	 	   set.setCreateTime(new Date());
 	 	   set.setLastEditTime(new Date());
+	 	   
+	 	   
 	 	   try {
-	 			if(setMapper.insertSelective(set) == 1) {
-	 				List<Integer> mediaIds = record.getMediaIds();
-	 				List<SetMedia> setMedias = new ArrayList<>();
-	 				for (int mediaId : mediaIds) {
-	 					SetMedia setMedia = new SetMedia();
-	 					setMedia.setSetId(set.getId());
-	 					setMedia.setMediaId(mediaId);
-	 					setMedias.add(setMedia);
+	 			if(setMapper.insertSelective(set) == 1 ) {
+	 				ShopSet shopSet = new ShopSet();
+	 		 	    shopSet.setShopId(record.getShopId());
+	 				shopSet.setSetId(set.getId());
+	 				if(shopSetMapper.insert(shopSet)==1) {
+	 					List<Integer> mediaIds = record.getMediaIds();
+		 				List<SetMedia> setMedias = new ArrayList<>();
+		 				for (int mediaId : mediaIds) {
+		 					SetMedia setMedia = new SetMedia();
+		 					setMedia.setSetId(set.getId());
+		 					setMedia.setMediaId(mediaId);
+		 					setMedias.add(setMedia);
+		 				}
+		 				return setMediaMapper.insertOrderBatch(setMedias)>0 ?Boolean.TRUE:Boolean.FALSE;
+	 				}else {
+	 					return Boolean.FALSE;
 	 				}
-	 				return setMediaMapper.insertOrderBatch(setMedias)>0 ?Boolean.TRUE:Boolean.FALSE;
-	 				
 	 			}else {
 	 				return Boolean.FALSE;
 	 			}
@@ -82,9 +95,9 @@ public class SetServiceImpl implements SetService {
 	}
 
 	@Override
-	public SetUrl querySetInfoAndimgById(Integer id) {
+	public List<SetUrl> querySetInfoAndImgById(Integer id) {
 		try {
-			return setMapper.querySetInfoAndimgById(id);
+			return setMapper.querySetInfoAndImgById(id);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			throw new GirlException(ResultEnum.SYS_EXCEPTION);

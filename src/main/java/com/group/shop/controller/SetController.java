@@ -57,10 +57,10 @@ public class SetController {
     }
     
 	@GetMapping(value= "",produces = {"application/json;charset=UTF-8"})
-	public Result<SetUrl> getPhotoUrl(@RequestParam(name = "setId",required = true) int setId){
-		SetUrl setUrl = setService.querySetInfoAndimgById(setId);
-		if(setUrl != null) {
-			return Result.success(setUrl);
+	public Result<List<SetUrl>> getPhotoUrl(@RequestParam(name = "shopId",required = true) int shopId){
+		List<SetUrl> setUrls = setService.querySetInfoAndImgById(shopId);
+		if(!setUrls.isEmpty() && setUrls != null) {
+			return Result.success(setUrls);
 		}else {
 			return Result.errorMsg("获取大套餐数据失败！");
 		}
