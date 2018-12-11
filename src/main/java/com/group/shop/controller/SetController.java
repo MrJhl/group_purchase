@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSONObject;
 import com.group.shop.config.file.FileUtils;
 import com.group.shop.entity.Set;
-import com.group.shop.service.SetService;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,48 +31,48 @@ import java.util.Map;
 @RequestMapping(value = "/goodsshop/goodslist")
 public class SetController {
 
-	@Autowired
-	private SetService setService; 
-	
-    private final ResourceLoader resourceLoader;
-
-    @Autowired
-    public SetController(ResourceLoader resourceLoader) {
-        this.resourceLoader = resourceLoader;
-    }
-
-//    @Value("${web.upload-path}")
-//    private String path;
-
-    
-    /**
-    *
-    * @param file 套餐上传
-    * @return
-     * @throws IOException 
-    */
-   @RequestMapping("fileUpload")
-   public int upload2(@RequestParam("fileName") MultipartFile file[]) throws IOException{
-	   List<String> url = new ArrayList<>();
-       // 显示图片
-	   List<Resource> photo = new ArrayList<>();
-       for (MultipartFile multipartFile : file) {
-    	   String photouri = FileUtils.saveImg(multipartFile);
-    	   photo.add(resourceLoader.getResource("file:" + photouri));
-    	   url.add(photouri);
-	}
-	   Set set = new Set();
-	   set.setName("套餐1");
-	   set.setDescribe("棒棒糖套餐");
-	   set.setPrice(new Float(1000));
-	   set.setSalePrice(new Float(1500));
-	   set.setTotal(0);
-	   set.setCreateTime(new Date());
-	   set.setLastEditTime(new Date());
-	   int num = setService.insertSelectiveBySetInfo(set, url); 
-//       
-       return num;
-   }
+//	@Autowired
+//	private SetService setService;
+//
+//    private final ResourceLoader resourceLoader;
+//
+//    @Autowired
+//    public SetController(ResourceLoader resourceLoader) {
+//        this.resourceLoader = resourceLoader;
+//    }
+//
+////    @Value("${web.upload-path}")
+////    private String path;
+//
+//
+//    /**
+//    *
+//    * @param file 套餐上传
+//    * @return
+//     * @throws IOException
+//    */
+//   @RequestMapping("fileUpload")
+//   public int upload2(@RequestParam("fileName") MultipartFile file[]) throws IOException{
+//	   List<String> url = new ArrayList<>();
+//       // 显示图片
+//	   List<Resource> photo = new ArrayList<>();
+//       for (MultipartFile multipartFile : file) {
+//    	   String photouri = FileUtils.saveImg(multipartFile);
+//    	   photo.add(resourceLoader.getResource("file:" + photouri));
+//    	   url.add(photouri);
+//	}
+//	   Set set = new Set();
+//	   set.setName("套餐1");
+//	   set.setDescribe("棒棒糖套餐");
+//	   set.setPrice(new Float(1000));
+//	   set.setSalePrice(new Float(1500));
+//	   set.setTotal(0);
+//	   set.setCreateTime(new Date());
+//	   set.setLastEditTime(new Date());
+//	   int num = setService.insertSelectiveBySetInfo(set, url);
+////
+//       return num;
+//   }
 
 //    /**
 //     * 显示单张图片

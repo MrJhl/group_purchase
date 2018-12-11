@@ -7,7 +7,8 @@ public enum ResultEnum {
     EXIST_EXCEPTION(-400,"存在相同数据异常"),
     NULL_INFO(-500,"空数据异常！"),
     OPERATE_FAIL(-200,"存在相同数据异常"),
-    SYS_EXCEPTION(-100,"系统异常"), LIMIT_AUTHORITY(-300,"权限不够");
+    SYS_EXCEPTION(-100,"系统异常"), LIMIT_AUTHORITY(-300,"权限不够"),
+    PAY_EXCEPTION(-1000,"支付异常");
 
     private Integer code;
 

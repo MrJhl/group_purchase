@@ -11,4 +11,9 @@ public class Constant {
      * token存活时间
      */
     public static final long TOKEN_EXIST_TIME = 24*60*30;
+
+    /**
+     *
+     */
+    public static final String  CODE_SESSION = "https://api.weixin.qq.com/sns/jscode2session";
 }
