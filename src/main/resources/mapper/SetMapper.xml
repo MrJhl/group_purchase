@@ -8,12 +8,19 @@
     <result column="price" property="price" jdbcType="DECIMAL" />
     <result column="sale_price" property="salePrice" jdbcType="DECIMAL" />
     <result column="total" property="total" jdbcType="INTEGER" />
+    <result column="index" property="index" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
   </resultMap>
 
+  <resultMap id="SetUrlResultMap" type="com.group.shop.vo.SetUrl" extends="BaseResultMap">
+   <collection property="url" ofType="java.lang.String">
+   	<result column="url" property="url"/>
+   </collection>
+  </resultMap>
+	
   <sql id="Base_Column_List" >
-    id, name, `describe`, price, sale_price,total, create_time, last_edit_time
+    id, name, `describe`, price, sale_price,total, `index`,create_time, last_edit_time
   </sql>
 
   <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -29,10 +36,10 @@
 
   <insert id="insertSet" parameterType="com.group.shop.entity.Set" >
     insert into tb_set (id, name, describe, 
-      price, total, create_time, last_edit_time
+      price, total, `index`, create_time, last_edit_time
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DECIMAL}, #{total,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP}
+      #{price,jdbcType=DECIMAL}, #{total,jdbcType=INTEGER}, #{index,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.group.shop.entity.Set"  useGeneratedKeys="true" keyProperty="id">
@@ -56,7 +63,9 @@
       <if test="total != null" >
         total,
       </if>
-     
+     <if test="index != null" >
+        `index`,
+      </if>
       <if test="createTime != null" >
         create_time,
       </if>
@@ -82,6 +91,9 @@
       </if>
       <if test="total != null" >
         #{total,jdbcType=INTEGER},
+      </if>
+      <if test="index != null" >
+        #{index,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -110,6 +122,9 @@
       <if test="total != null" >
         total = #{total,jdbcType=INTEGER},
       </if>
+      <if test="index != null" >
+        total = #{index,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -119,5 +134,11 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-	
+	<select id="querySetInfoAndImgById" resultMap="SetUrlResultMap" parameterType="java.lang.Integer" >
+	SELECT s.*,m.url from tb_shop_set p
+	JOIN tb_set s ON p.set_id = s.id
+	JOIN tb_set_media sm ON s.id = sm.set_id
+	JOIN tb_media m ON m.id = sm.media_id
+    WHERE p.shop_id = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

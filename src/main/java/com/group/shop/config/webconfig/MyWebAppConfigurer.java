@@ -48,6 +48,10 @@ public class MyWebAppConfigurer implements WebMvcConfigurer{
 
         /** 不拦截部分 **/
         loginIR.excludePathPatterns("/admin/login");
+        loginIR.excludePathPatterns("/media/*");
+        loginIR.excludePathPatterns("/set/*");
+        loginIR.excludePathPatterns("/goods/*");
+        loginIR.excludePathPatterns("/order/*");
     }
     
 

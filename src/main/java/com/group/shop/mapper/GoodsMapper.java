@@ -1,6 +1,10 @@
 package com.group.shop.mapper;
 
 import com.group.shop.entity.Goods;
+import com.group.shop.vo.GoodsUrl;
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -17,4 +21,13 @@ public interface GoodsMapper {
     int updateByPrimaryKeySelective(Goods goods);
 
     int updateGoods(Goods goods);
+    
+    List<GoodsUrl> queryGoodsInfoAndImgById(Integer id);
+
+    /**
+     * 获取商品列表
+     * @param goods
+     * @return
+     */
+    List<Goods> getGoodsList(Goods goods);
 }

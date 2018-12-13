@@ -8,12 +8,13 @@
     <result column="gender" property="gender" jdbcType="BIT" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
   </resultMap>
 
   <sql id="Base_Column_List" >
-    id, open_id, username, gender, phone, address, create_time, last_edit_time
+    id, open_id, username, gender, phone, address, photo, create_time, last_edit_time
   </sql>
 
   <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -29,10 +30,10 @@
 
   <insert id="insertUser" parameterType="com.group.shop.entity.User" >
     insert into tb_user (id, open_id, username, 
-      gender, phone, address, 
+      gender, phone, address, photo,
       create_time, last_edit_time)
     values (#{id,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{gender,jdbcType=BIT}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=BIT}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.group.shop.entity.User" >
@@ -55,6 +56,9 @@
       </if>
       <if test="address != null" >
         address,
+      </if>
+      <if test="photo != null" >
+        photo,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -81,6 +85,9 @@
       </if>
       <if test="address != null" >
         #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -109,6 +116,9 @@
       <if test="address != null" >
         address = #{address,jdbcType=VARCHAR},
       </if>
+      <if test="photo != null" >
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -118,4 +128,21 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryByUser" resultMap="BaseResultMap" parameterType="com.group.shop.entity.User">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_user
+    <where>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="openId != null">
+        and open_id = #{openId,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null" >
+        and phone = #{phone,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
 </mapper>

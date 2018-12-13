@@ -15,4 +15,11 @@ public interface UserMapper {
     User queryById(Integer id);
 
     int updateUser(User user);
+
+    /**
+     * 根据用户进行查询
+     * @param user
+     * @return
+     */
+    User queryByUser(User user);
 }

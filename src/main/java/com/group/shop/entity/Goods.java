@@ -16,8 +16,12 @@ public class Goods {
     private String standard;
 
     private Float price;
+    
+    private Float salePrice;
 
     private Integer index;
+    
+    private Integer setId;
 
     private Date createTime;
 
@@ -62,8 +66,16 @@ public class Goods {
     public void setPrice(Float price) {
         this.price = price;
     }
+    
+    public Float getSalePrice() {
+		return salePrice;
+	}
 
-    public Integer getIndex() {
+	public void setSalePrice(Float salePrice) {
+		this.salePrice = salePrice;
+	}
+
+	public Integer getIndex() {
         return index;
     }
 
@@ -71,7 +83,16 @@ public class Goods {
         this.index = index;
     }
 
-    public Date getCreateTime() {
+    
+    public Integer getSetId() {
+		return setId;
+	}
+
+	public void setSetId(Integer setId) {
+		this.setId = setId;
+	}
+
+	public Date getCreateTime() {
         return createTime;
     }
 

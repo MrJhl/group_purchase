@@ -18,14 +18,18 @@ public class User {
 
     private String address;
 
+    private String photo;
+
     private Date createTime;
 
     private Date lastEditTime;
-    
-    private Integer userStatics;
-    
-    public Integer getUserStatus() {
-    	return userStatics;
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public Integer getId() {

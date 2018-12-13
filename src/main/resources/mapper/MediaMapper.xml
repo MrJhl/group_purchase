@@ -5,14 +5,12 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="BIT" />
-    <result column="common_id" property="commonId" jdbcType="INTEGER" />
-    <result column="table" property="table" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
   </resultMap>
 
   <sql id="Base_Column_List" >
-    id, url, type, common_id, `table`, create_time, last_edit_time
+    id, url, type, create_time, last_edit_time
   </sql>
 
   <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -27,11 +25,11 @@
   </delete>
 
   <insert id="insertMedia" parameterType="com.group.shop.entity.Media" >
-    insert into tb_media (id, url, type, common_id, 
-      `table`, create_time, last_edit_time
+    insert into tb_media (id, url, type,
+     create_time, last_edit_time
       )
-    values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, #{commonId,jdbcType=INTEGER}, 
-      #{table,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP}
+    values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.group.shop.entity.Media"  useGeneratedKeys="true" keyProperty="id">
@@ -46,12 +44,7 @@
       <if test="type != null" >
         type,
       </if>
-      <if test="commonId != null" >
-        common_id,
-      </if>
-      <if test="table != null" >
-        `table`,
-      </if>
+
       <if test="createTime != null" >
         create_time,
       </if>
@@ -68,12 +61,6 @@
       </if>
       <if test="type != null" >
         #{type,jdbcType=BIT},
-      </if>
-      <if test="commonId != null" >
-        #{commonId,jdbcType=INTEGER},
-      </if>
-      <if test="table != null" >
-        #{table,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -93,12 +80,6 @@
       <if test="type != null" >
         type = #{type,jdbcType=BIT},
       </if>
-      <if test="commonId != null" >
-        common_id = #{commonId,jdbcType=INTEGER},
-      </if>
-      <if test="table != null" >
-        table = #{table,jdbcType=INTEGER},
-      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -112,20 +93,17 @@
     update tb_media
     set url = #{url,jdbcType=VARCHAR},
       type = #{type,jdbcType=BIT},
-      common_id = #{commonId,jdbcType=INTEGER},
-      `table` = #{table,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
     <insert id="insertOrderBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-  	insert into tb_media(url, type, `table`, create_time, last_edit_time)
+  	insert into tb_media(url, type, create_time, last_edit_time)
   	values
   		<foreach collection="list" item="record" separator=",">
   			(#{record.url,jdbcType=VARCHAR},
   			 #{record.type,jdbcType=BIT},
-  			 #{record.table,jdbcType=INTEGER},
   			 #{record.createTime,jdbcType=TIMESTAMP},
   			 #{record.lastEditTime,jdbcType=TIMESTAMP})
   		</foreach>

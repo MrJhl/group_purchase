@@ -1,7 +1,9 @@
 package com.group.shop.mapper;
 
 import com.group.shop.entity.Set;
+import com.group.shop.vo.SetUrl;
 
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,7 +17,9 @@ public interface SetMapper {
     int insertSelective(Set record);
 
     Set queryById(Integer id);
-
+    
+    List<SetUrl> querySetInfoAndImgById(Integer id);
+    
     int updateSet(Set set);
 
 }

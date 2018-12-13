@@ -3,17 +3,18 @@
 <mapper namespace="com.group.shop.mapper.OrderMapper" >
   <resultMap id="BaseResultMap" type="com.group.shop.entity.Order" >
     <id column="number" property="number" jdbcType="VARCHAR" />
-    <result column="set_id" property="setId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="shop_id" property="shopId" jdbcType="INTEGER" />
     <result column="total" property="total" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="BIT" />
+    <result column="remard" property="remark" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
   </resultMap>
 
   <sql id="Base_Column_List" >
-    number, set_id, user_id, shop_id, total, status, create_time, last_edit_time
+    number, goods_id, user_id, shop_id, total, status, remark, create_time, last_edit_time
   </sql>
 
   <select id="queryByNumber" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -22,17 +23,23 @@
     from tb_order
     where number = #{number,jdbcType=VARCHAR}
   </select>
+  <select id="queryByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_order
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByNumber" parameterType="java.lang.String" >
     delete from tb_order
     where number = #{number,jdbcType=VARCHAR}
   </delete>
 
   <insert id="insertOrder" parameterType="com.group.shop.entity.Order" >
-    insert into tb_order (number, set_id, user_id, 
-      shop_id, total, status, 
+    insert into tb_order (number, goods_id, user_id, 
+      shop_id, total, status, remark,
       create_time, last_edit_time)
-    values (#{number,jdbcType=VARCHAR}, #{setId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
-      #{shopId,jdbcType=INTEGER}, #{total,jdbcType=INTEGER}, #{status,jdbcType=BIT}, 
+    values (#{number,jdbcType=VARCHAR}, #{goodsId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{shopId,jdbcType=INTEGER}, #{total,jdbcType=INTEGER}, #{status,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.group.shop.entity.Order" >
@@ -41,8 +48,8 @@
       <if test="number != null" >
         number,
       </if>
-      <if test="setId != null" >
-        set_id,
+      <if test="goodsId != null" >
+        goods_id,
       </if>
       <if test="userId != null" >
         user_id,
@@ -56,6 +63,9 @@
       <if test="status != null" >
         status,
       </if>
+      <if test="remark != null" >
+        remark,
+      </if>
       <if test="createTime != null" >
         create_time,
       </if>
@@ -67,8 +77,8 @@
       <if test="number != null" >
         #{number,jdbcType=VARCHAR},
       </if>
-      <if test="setId != null" >
-        #{setId,jdbcType=INTEGER},
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
@@ -82,6 +92,9 @@
       <if test="status != null" >
         #{status,jdbcType=BIT},
       </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -94,8 +107,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.group.shop.entity.Order" >
     update tb_order
     <set >
-      <if test="setId != null" >
-        set_id = #{setId,jdbcType=INTEGER},
+      <if test="segoods != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
       </if>
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
@@ -109,6 +122,9 @@
       <if test="status != null" >
         status = #{status,jdbcType=BIT},
       </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -119,13 +135,13 @@
     where number = #{number,jdbcType=VARCHAR}
   </update>
   <update id="updateOrder" parameterType="com.group.shop.entity.Order" >
-    update tb_order
-    set set_id = #{setId,jdbcType=INTEGER},
+    update tb_order set 
+      goods_id = #{goodsId,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
       shop_id = #{shopId,jdbcType=INTEGER},
       total = #{total,jdbcType=INTEGER},
       status = #{status,jdbcType=BIT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
       last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP}
     where number = #{number,jdbcType=VARCHAR}
   </update>
