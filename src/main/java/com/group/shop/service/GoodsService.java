@@ -21,7 +21,7 @@ public interface GoodsService {
 	
 	Boolean deleteById(Integer id);
 	
-	List<GoodsUrl> querySetInfoAndImgById(Integer id);
+	PageInfo<GoodsUrl> querySetInfoAndImgById(Integer id,Integer pageSize,Integer pageIndex);
 
 	/**
 	 * 分页查询

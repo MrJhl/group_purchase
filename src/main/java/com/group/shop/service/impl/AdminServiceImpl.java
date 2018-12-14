@@ -10,6 +10,9 @@ import com.group.shop.service.AdminService;
 import com.group.shop.utils.JwtTokenUtil;
 import com.group.shop.utils.MD5Util;
 import com.group.shop.vo.LoginInfo;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +22,9 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Service
 public class AdminServiceImpl implements AdminService {
-
-    private final Logger log = LoggerFactory.getLogger(AdminServiceImpl.class);
 
     @Autowired
     private AdminMapper adminMapper;

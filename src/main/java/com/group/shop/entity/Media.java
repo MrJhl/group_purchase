@@ -2,8 +2,11 @@ package com.group.shop.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Media {
     private Integer id;
@@ -16,43 +19,5 @@ public class Media {
 
     private Date lastEditTime;
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getLastEditTime() {
-        return lastEditTime;
-    }
-
-    public void setLastEditTime(Date lastEditTime) {
-        this.lastEditTime = lastEditTime;
-    }
 }

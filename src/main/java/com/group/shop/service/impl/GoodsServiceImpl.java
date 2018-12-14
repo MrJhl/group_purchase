@@ -21,10 +21,12 @@ import com.group.shop.service.GoodsService;
 import com.group.shop.vo.GoodsInfo;
 import com.group.shop.vo.GoodsUrl;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service("GoodsService")
 public class GoodsServiceImpl implements GoodsService {
 
-	private final Logger log = LoggerFactory.getLogger(GoodsService.class);
 	
 	@Autowired
 	private GoodsMapper goodsMapper;
@@ -86,9 +88,11 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public List<GoodsUrl> querySetInfoAndImgById(Integer id) {
+	public PageInfo<GoodsUrl> querySetInfoAndImgById(Integer id,Integer pageSize,Integer pageIndex) {
 		try {
-			return goodsMapper.queryGoodsInfoAndImgById(id);
+			PageHelper.startPage(pageIndex,pageSize);
+			List<GoodsUrl> goodsUrls = goodsMapper.queryGoodsInfoAndImgById(id);
+			return new PageInfo<GoodsUrl>(goodsUrls);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			throw new GirlException(ResultEnum.SYS_EXCEPTION);

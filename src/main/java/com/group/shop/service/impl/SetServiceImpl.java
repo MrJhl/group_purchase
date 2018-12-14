@@ -20,10 +20,13 @@ import com.group.shop.mapper.ShopSetMapper;
 import com.group.shop.service.SetService;
 import com.group.shop.vo.SetInfo;
 import com.group.shop.vo.SetUrl;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service("SetService")
 public class SetServiceImpl implements SetService {
 	
-	Logger log = LoggerFactory.getLogger(SetService.class);
 	
 	@Autowired
 	private ShopSetMapper shopSetMapper;

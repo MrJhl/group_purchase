@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.group.shop.common.CodeMsg;
 import com.group.shop.common.Result;
 import com.group.shop.config.file.FileUtils;
+import com.group.shop.entity.Media;
 import com.group.shop.service.MediaService;
 
 /**
@@ -34,15 +35,10 @@ public class MediaController {
 	private String path;
 	
 	//上传照片
-	@PostMapping(value = "/uploadimg")
-	public Result<Object> insertPhotoAndUrl(@RequestParam(name = "fileName") MultipartFile file[]){
-		List<String> url = new ArrayList<>();
-       // 显示图片
-       for (MultipartFile multipartFile : file) {
-    	   String photouri = FileUtils.saveImg(multipartFile,path);
-    	   url.add(photouri);
-       }
-       List<Integer> mediaIds = mediaService.insertOrderBatch(url);
+	@PostMapping()
+	public Result<List<Media>> insertPhotoAndUrl(@RequestParam(name = "fileName") MultipartFile file[]){
+		System.out.println("####");
+       List<Media> mediaIds = mediaService.saveMedia(file);
        if(!mediaIds.isEmpty()){
            return Result.success(mediaIds);
        }else{

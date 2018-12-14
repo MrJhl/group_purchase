@@ -2,30 +2,16 @@ package com.group.shop.vo;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.group.shop.entity.Goods;
 
+import lombok.Data;
+
+@Data
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class GoodsInfo {
 
 	private Goods goods;
-
     private List<Integer> mediaIds;
-
-	public Goods getGoods() {
-		return goods;
-	}
-
-	public void setGoods(Goods goods) {
-		this.goods = goods;
-	}
-
-	public List<Integer> getMediaIds() {
-		return mediaIds;
-	}
-
-	public void setMediaIds(List<Integer> mediaIds) {
-		this.mediaIds = mediaIds;
-	}
-    
-    
 	
 }
