@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,10 +49,15 @@ public class GoodsController {
 	}
 	
 	@GetMapping(value= "/list",produces = {"application/json;charset=UTF-8"})
-	public Result<List<GoodsUrl>> getGoodsInfoAndImg(@RequestParam(name = "setId",required = true) int setId){
-		List<GoodsUrl> goodsUrls = goodsService.querySetInfoAndImgById(setId);
-		if(!goodsUrls.isEmpty() && goodsUrls != null) {
-			return Result.success(goodsUrls);
+	public Result<Map<String, Object>> getGoodsInfoAndImg(@RequestParam(name = "setId",required = true) int setId, 
+			 @RequestParam(name="pageSize",required = false,defaultValue = "20")Integer pageSize,
+			 @RequestParam(name="pageIndex",required = false,defaultValue = "0")Integer pageIndex){
+		PageInfo<GoodsUrl> pageInfo = goodsService.querySetInfoAndImgById(setId,pageSize,pageIndex);
+		Map<String,Object> map = new HashMap<>();
+		if(pageInfo.getSize() > 0) {
+			map.put("total", pageInfo.getTotal());
+			map.put("data", pageInfo.getList());
+			return Result.success(map);
 		}else {
 			return Result.errorMsg("获取小套餐失败！");
 		}

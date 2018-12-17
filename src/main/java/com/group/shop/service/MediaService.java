@@ -2,6 +2,8 @@ package com.group.shop.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.group.shop.entity.Media;
 
 public interface MediaService {
@@ -11,6 +13,6 @@ public interface MediaService {
 	 * @param record
 	 * @return
 	 */
-	List<Integer> insertOrderBatch(List<String> record);
+	List<Media> saveMedia(MultipartFile file[]);
 	
 }

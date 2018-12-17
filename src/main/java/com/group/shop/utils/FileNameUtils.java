@@ -1,4 +1,4 @@
-package com.group.shop.config.file;
+package com.group.shop.utils;
 
 import java.util.UUID;
 

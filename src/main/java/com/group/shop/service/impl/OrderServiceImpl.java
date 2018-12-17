@@ -14,10 +14,12 @@ import com.group.shop.entity.Order;
 import com.group.shop.mapper.OrderMapper;
 import com.group.shop.service.OrderService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service("OrderService")
 public class OrderServiceImpl implements OrderService {
 	
-	Logger log = LoggerFactory.getLogger(OrderService.class);
 	
 	@Autowired
 	private OrderMapper orderMapper;

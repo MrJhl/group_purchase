@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.group.shop.common.GirlException;
 import com.group.shop.common.ResultEnum;
 import com.group.shop.service.impl.AdminServiceImpl;
+import com.group.shop.utils.FileNameUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
