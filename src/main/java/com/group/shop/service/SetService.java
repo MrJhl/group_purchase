@@ -14,13 +14,20 @@ public interface SetService {
 
     int insertSet(Set record);
 
-    Boolean insertSelective(SetInfo record);
+//    Boolean insertSelective(SetInfo record);
 
     Set queryById(Integer id);
 
     int updateSet(Set set);
     
     List<SetUrl> querySetInfoAndImgById(Integer id);
-    
-	
+
+    /**
+     * 插入套餐信息
+     * @param setInfo
+     * @return
+     */
+    boolean insertSetInfo(SetInfo setInfo);
+
+    List<Set> getSetList(Set set);
 }

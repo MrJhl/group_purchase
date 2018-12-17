@@ -20,7 +20,7 @@
     create_time, last_edit_time
   </sql>
 
-  <select id="queryAdminById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="queryAdminById" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from tb_admin

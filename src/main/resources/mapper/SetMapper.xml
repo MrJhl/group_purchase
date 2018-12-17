@@ -141,4 +141,15 @@
 	JOIN tb_media m ON m.id = sm.media_id
     WHERE p.shop_id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="getSetList" resultMap="BaseResultMap" parameterType="com.group.shop.entity.Set">
+    select
+    <include refid="Base_Column_List"></include>
+    from tb_set
+    <where>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
 </mapper>

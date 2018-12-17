@@ -22,4 +22,10 @@ public interface SetMapper {
     
     int updateSet(Set set);
 
+    /**
+     * 获取套餐列表
+     * @param set
+     * @return
+     */
+    List<Set> getSetList(Set set);
 }

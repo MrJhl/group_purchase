@@ -1,59 +1,56 @@
 package com.group.shop.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.group.shop.common.Result;
+import com.group.shop.entity.Set;
 import com.group.shop.service.SetService;
 import com.group.shop.vo.SetInfo;
-import com.group.shop.vo.SetUrl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/set")
 public class SetController {
 
-	@Autowired
-	private SetService setService; 
-	
+    @Autowired
+    private SetService setService;
 
-//    @Value("${web.upload-path}")
-//    private String path;
-
-    
     /**
-    *
-    * @param file 套餐上传
-    * @return
-     * @throws IOException 
-    */
-    @PostMapping(value = "",produces = {"application/json;charset=UTF-8"})
-    public Result<Object> loginSystem(@RequestBody SetInfo setInfo){
-      
- 	   Boolean isInsert = setService.insertSelective(setInfo);
-        if(isInsert){
+     * 插入套餐信息
+     * @param setInfo
+     * @return
+     */
+    @PostMapping(produces = {"application/json;charset=UTF-8"})
+    public Result<Boolean> insertSet(@RequestBody SetInfo setInfo){
+        boolean isSuccess = setService.insertSetInfo(setInfo);
+        if(isSuccess){
             return Result.success(true);
         }else{
-            return Result.errorMsg("上传套餐数据失败！");
+            return Result.errorMsg("插入套餐信息失败！");
         }
     }
-    
-	@GetMapping(value= "",produces = {"application/json;charset=UTF-8"})
-	public Result<List<SetUrl>> getPhotoUrl(@RequestParam(name = "shopId",required = true) int shopId){
-		List<SetUrl> setUrls = setService.querySetInfoAndImgById(shopId);
-		if(!setUrls.isEmpty() && setUrls != null) {
-			return Result.success(setUrls);
-		}else {
-			return Result.errorMsg("获取大套餐数据失败！");
-		}
-	}
 
+    /**
+     * 查询套餐列表
+     * @return
+     */
+    @GetMapping(value = "/setlist",produces = {"application/json;charset=UTF-8"})
+    public Result<Object> setList(){
+        Set set = new Set();
+        List<Set> setList = setService.getSetList(set);
+        if(setList.size() > 0){
+            return Result.success(setList);
+        }else {
+            return Result.errorMsg("不存在套餐信息！");
+        }
+    }
 
+    @GetMapping(value = "/limit",produces = {"application/json;charset=UTF-8"})
+    public Result<Object> limitSet(@RequestParam(value = "name")String name,
+                                   @RequestParam(value = "pageSize",required = false,defaultValue = "20")Integer pageSize,
+                                   @RequestParam(value = "pageIndex",required = false,defaultValue = "0")Integer pageIndex){
+
+        return null;
+    }
 }

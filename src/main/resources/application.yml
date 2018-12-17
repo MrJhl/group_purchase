@@ -11,7 +11,7 @@ spring:
   #Redis配置
   redis:
     database: 0 # Redis数据库索引（默认为0）
-    host: 47.92.23.43  # Redis服务器地址
+    host: 47.92.1.43  # Redis服务器地址
     port: 6379 # Redis服务器连接端口
     password:  # Redis服务器连接密码（默认为空）
     jedis:
@@ -29,7 +29,7 @@ spring:
 
   #数据库配置
   datasource:
-    url: jdbc:mysql://39.18.235.163:3306/group_purchase?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://39.108.3:3306/group_purchase?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: .
     driver-class-name: com.mysql.jdbc.Driver
@@ -68,11 +68,14 @@ logging:
   level:
     com.example.strobe.mapper: trace
 
+#文件上传路径
+linux.file.upload.image: /shop/file/image
+
+win.file.upload.image: D://shop/file/image
+
 web:
   upload-path: C:/Users/ASUS/Desktop/Photo/
 multipart:
   maxRequestSize: 50Mb
   maxFileSize: 50Mb
-
-#微信小程序配置文件
 
