@@ -46,8 +46,15 @@ public class SetController {
         }
     }
 
+    /**
+     * 分页
+     * @param name
+     * @param pageSize
+     * @param pageIndex
+     * @return
+     */
     @GetMapping(value = "/limit",produces = {"application/json;charset=UTF-8"})
-    public Result<Object> limitSet(@RequestParam(value = "name")String name,
+    public Result<Object> limitSet(@RequestParam(value = "name",required = false)String name,
                                    @RequestParam(value = "pageSize",required = false,defaultValue = "20")Integer pageSize,
                                    @RequestParam(value = "pageIndex",required = false,defaultValue = "0")Integer pageIndex){
 

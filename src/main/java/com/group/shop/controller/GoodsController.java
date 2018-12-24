@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.group.shop.vo.GoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +38,7 @@ public class GoodsController {
 	private GoodsService goodsService;
 	
 	//根据goodsId查询单个商品
-	@GetMapping(value = "",produces = {"application/json;charset=UTF-8"})
+	@GetMapping(produces = {"application/json;charset=UTF-8"})
 	public Result<Object> getGoodsInfo(@RequestParam(name = "goodsId",required = true) int goodsId){
 		Goods goods = goodsService.queryById(goodsId);
 		if(goods != null) {
@@ -63,7 +63,7 @@ public class GoodsController {
 		}
 	}
 	//根据goods添加单个商品信息
-	@PostMapping(value = "",produces = {"application/json;charset=UTF-8"})
+	@PostMapping(produces = {"application/json;charset=UTF-8"})
 	public Result<Object> insertGoods(@RequestBody GoodsInfo goodsInfo){
 			if(goodsService.insertSelective(goodsInfo)){
 	            return Result.success(CodeMsg.SUCCESS);
@@ -72,7 +72,7 @@ public class GoodsController {
 	        }
 	}
 	//根据修改后的goods更新单个商品信息
-	@PutMapping(value = "",produces = {"application/json;charset=UTF-8"})
+	@PutMapping(produces = {"application/json;charset=UTF-8"})
 	public Result<Object> updateGoods(@RequestBody Goods goods){
 			if(goodsService.updateByPrimarykeySelective(goods)){
 	            return Result.success(CodeMsg.SUCCESS);
@@ -91,13 +91,20 @@ public class GoodsController {
 		}
 	}
 
+	/**
+	 * 分页
+	 * @param name
+	 * @param pageSize
+	 * @param pageIndex
+	 * @return
+	 */
 	@GetMapping(value = "/limit",produces = {"application/json;charset=UTF-8"})
 	public Result<Object> limitGoods(@RequestParam(name = "name")String name,
 									 @RequestParam(name="pageSize",required = false,defaultValue = "20")Integer pageSize,
 									 @RequestParam(name="pageIndex",required = false,defaultValue = "0")Integer pageIndex){
 		Goods goods = new Goods();
 		goods.setName(name);
-		PageInfo<Goods> pageInfo = goodsService.limitGoods(goods,pageSize,pageIndex);
+		PageInfo<GoodsVo> pageInfo = goodsService.limitGoods(goods,pageSize,pageIndex);
 
 		Map<String,Object> map = new HashMap<>();
 

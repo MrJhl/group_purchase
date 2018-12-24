@@ -4,6 +4,7 @@ import com.group.shop.entity.Order;
 
 import java.util.List;
 
+import com.group.shop.vo.OrderVo;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -22,4 +23,11 @@ public interface OrderMapper {
     int updateOrder(Order order);
     
     List<Order> queryByUserId(Integer id);
+
+    /**
+     * 获取订单列表
+     * @param orderVo
+     * @return
+     */
+    List<OrderVo> getOrderVoList(OrderVo orderVo);
 }

@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.group.shop.re.GoodsRe;
+import com.group.shop.vo.GoodsVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +49,6 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public Boolean insertSelective(GoodsInfo record) {
 		Goods goods = record.getGoods();
-		goods.setIndex(0);
 		goods.setCreateTime(new Date());
 		goods.setLastEditTime(new Date());
 		try {
@@ -100,11 +101,17 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public PageInfo<Goods> limitGoods(Goods goods, Integer pageSize, Integer pageIndex) {
+	public PageInfo<GoodsVo> limitGoods(Goods goods, Integer pageSize, Integer pageIndex) {
 		PageHelper.startPage(pageIndex,pageSize);
-		List<Goods> goodsList = goodsMapper.getGoodsList(goods);
+		List<GoodsVo> goodsVoList = goodsMapper.getGoodsVoList(goods);
 
-		return new PageInfo<Goods>(goodsList);
+		return new PageInfo<GoodsVo>(goodsVoList);
+	}
+
+	@Override
+	public int updateGoodsRe(GoodsRe goodsRe) {
+
+		return 0;
 	}
 
 

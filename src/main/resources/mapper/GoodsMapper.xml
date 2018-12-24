@@ -6,13 +6,23 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="describe" property="describe" jdbcType="VARCHAR" />
     <result column="standard" property="standard" jdbcType="VARCHAR" />
-    <result column="price" property="price" jdbcType="DECIMAL" />
     <result column="sale_price" property="salePrice" jdbcType="DECIMAL" />
-    <result column="index" property="index" jdbcType="INTEGER" />
     <result column="set_id" property="setId" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
   </resultMap>
+
+  <resultMap id="BaseResultMapVo" type="com.group.shop.vo.GoodsVo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="describe" property="describe" jdbcType="VARCHAR" />
+    <result column="standard" property="standard" jdbcType="VARCHAR" />
+    <result column="sale_price" property="salePrice" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <association property="set" column="{id=set_id}" select="com.group.shop.mapper.SetMapper.queryById"></association>
+  </resultMap>
+
   <resultMap id="GoodsUrlResultMap" type="com.group.shop.vo.GoodsUrl" extends="BaseResultMap">
   	<collection property="url" ofType="java.lang.String">
   	<result column="url" property="url" jdbcType="VARCHAR"/>
@@ -20,10 +30,10 @@
   </resultMap>
 	
   <sql id="Base_Column_List" >
-    id, name, `describe`, standard, price, sale_price, `index`, set_id, create_time, last_edit_time
+    id, name, `describe`, standard,sale_price, set_id, create_time, last_edit_time
   </sql>
 
-  <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="queryById" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from tb_goods
@@ -36,10 +46,10 @@
 
   <insert id="insertGoods" parameterType="com.group.shop.entity.Goods" >
     insert into tb_goods (id, name, `describe`, 
-      standard, price, sale_price, `index`, set_id,
+      standard, sale_price, set_id,
       create_time, last_edit_time)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, 
-      #{standard,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{salePrice,jdbcType=DECIMAL}, #{index,jdbcType=INTEGER}, 
+      #{standard,jdbcType=VARCHAR}, #{salePrice,jdbcType=DECIMAL},
       #{setId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.group.shop.entity.Goods" useGeneratedKeys="true" keyProperty="id">
@@ -57,14 +67,8 @@
       <if test="standard != null" >
         standard,
       </if>
-      <if test="price != null" >
-        price,
-      </if>
       <if test="salePrice != null" >
         sale_price,
-      </if>
-      <if test="index != null" >
-        `index`,
       </if>
       <if test="setId != null" >
         set_id,
@@ -89,14 +93,8 @@
       <if test="standard != null" >
         #{standard,jdbcType=VARCHAR},
       </if>
-      <if test="price != null" >
-        #{price,jdbcType=DECIMAL},
-      </if>
       <if test="salePrice != null" >
         #{salePrice,jdbcType=DECIMAL},
-      </if>
-      <if test="index != null" >
-        #{index,jdbcType=INTEGER},
       </if>
       <if test="setId != null" >
         #{setId,jdbcType=INTEGER},
@@ -122,14 +120,8 @@
       <if test="standard != null" >
         standard = #{standard,jdbcType=VARCHAR},
       </if>
-      <if test="price != null" >
-        price = #{price,jdbcType=DECIMAL},
-      </if>
       <if test="salePrice != null" >
         price = #{salePrice,jdbcType=DECIMAL},
-      </if>
-      <if test="index != null" >
-        `index` = #{index,jdbcType=INTEGER},
       </if>
       <if test="setId != null" >
         set_id = #{setId,jdbcType=INTEGER},
@@ -148,9 +140,7 @@
     set name = #{name,jdbcType=VARCHAR},
       `describe` = #{describe,jdbcType=VARCHAR},
       standard = #{standard,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL},
       sale_price = #{salePrice,jdbcType=DECIMAL},
-      `index` = #{index,jdbcType=INTEGER},
       set_id = #{setId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP}
@@ -163,7 +153,7 @@
     WHERE g.set_id = #{id,jdbcType=INTEGER}
   </select>
 
-  <select id="getGoodsList" resultMap="BaseResultMap" parameterType="com.group.shop.entity.Goods">
+  <select id="getGoodsVoList" resultMap="BaseResultMapVo" parameterType="com.group.shop.vo.GoodsVo">
     select
     <include refid="Base_Column_List"></include>
     from tb_goods

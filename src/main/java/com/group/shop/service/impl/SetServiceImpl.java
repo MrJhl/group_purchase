@@ -42,7 +42,7 @@ public class SetServiceImpl implements SetService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 
 	@Override
 	public Set queryById(Integer id) {

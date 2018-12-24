@@ -16,7 +16,7 @@
     id, name, num, address, phone, email, create_time, last_edit_time
   </sql>
 
-  <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="queryById" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from tb_shop

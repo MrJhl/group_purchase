@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.github.pagehelper.PageInfo;
 import com.group.shop.entity.Goods;
+import com.group.shop.re.GoodsRe;
 import com.group.shop.vo.GoodsInfo;
 import com.group.shop.vo.GoodsUrl;
+import com.group.shop.vo.GoodsVo;
 
 public interface GoodsService {
 
@@ -30,5 +32,12 @@ public interface GoodsService {
 	 * @param pageIndex
 	 * @return
 	 */
-    PageInfo<Goods> limitGoods(Goods goods, Integer pageSize, Integer pageIndex);
+    PageInfo<GoodsVo> limitGoods(Goods goods, Integer pageSize, Integer pageIndex);
+
+	/**
+	 * 更新商品信息！
+	 * @param goodsRe
+	 * @return
+	 */
+	int updateGoodsRe(GoodsRe goodsRe);
 }

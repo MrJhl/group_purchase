@@ -2,7 +2,9 @@ package com.group.shop.service;
 
 import java.util.List;
 
+import com.github.pagehelper.PageInfo;
 import com.group.shop.entity.Order;
+import com.group.shop.vo.OrderVo;
 
 public interface OrderService {
 
@@ -19,5 +21,13 @@ public interface OrderService {
     int updateOrder(Order order);
     
     List<Order> queryByUserId(Integer id);
-	
+
+    /**
+     * 分页查询
+     * @param orderVo
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    PageInfo<OrderVo> limitOrderVo(OrderVo orderVo, Integer pageIndex, Integer pageSize);
 }

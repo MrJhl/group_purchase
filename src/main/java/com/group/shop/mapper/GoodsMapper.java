@@ -5,6 +5,7 @@ import com.group.shop.vo.GoodsUrl;
 
 import java.util.List;
 
+import com.group.shop.vo.GoodsVo;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -29,5 +30,5 @@ public interface GoodsMapper {
      * @param goods
      * @return
      */
-    List<Goods> getGoodsList(Goods goods);
+    List<GoodsVo> getGoodsVoList(Goods goods);
 }

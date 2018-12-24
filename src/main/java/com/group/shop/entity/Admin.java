@@ -26,9 +26,19 @@ public class Admin {
 
     private Integer userType;
 
+    private Integer shopId;
+
     private Date createTime;
 
     private Date lastEditTime;
+
+    public Integer getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
+    }
 
     public Integer getId() {
         return id;

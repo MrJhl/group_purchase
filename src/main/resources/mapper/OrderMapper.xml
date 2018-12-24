@@ -13,29 +13,35 @@
     <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
   </resultMap>
 
+  <resultMap id="BaseResultMapVo" type="com.group.shop.vo.OrderVo" >
+    <id column="number" property="number" jdbcType="VARCHAR" />
+    <result column="total" property="total" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="remard" property="remark" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <association property="shop" column="{id=shop_id}" select="com.group.shop.mapper.ShopMapper.queryById"></association>
+    <association property="goods" column="{id=goods_id}" select="com.group.shop.mapper.GoodsMapper.queryById"></association>
+    <association property="user" column="{id=user_id}" select="com.group.shop.mapper.UserMapper.queryById"></association>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     number, goods_id, user_id, shop_id, total, status, remark, create_time, last_edit_time
   </sql>
 
-  <select id="queryByNumber" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="queryByNumber" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />
     from tb_order
-    where number = #{number,jdbcType=VARCHAR}
-  </select>
-  <select id="queryByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from tb_order
-    where user_id = #{userId,jdbcType=VARCHAR}
+    where `number` = #{number,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByNumber" parameterType="java.lang.String" >
     delete from tb_order
-    where number = #{number,jdbcType=VARCHAR}
+    where `number` = #{number,jdbcType=VARCHAR}
   </delete>
 
   <insert id="insertOrder" parameterType="com.group.shop.entity.Order" >
-    insert into tb_order (number, goods_id, user_id, 
+    insert into tb_order (`number`, goods_id, user_id,
       shop_id, total, status, remark,
       create_time, last_edit_time)
     values (#{number,jdbcType=VARCHAR}, #{goodsId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
@@ -107,7 +113,7 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.group.shop.entity.Order" >
     update tb_order
     <set >
-      <if test="segoods != null" >
+      <if test="goodsId != null" >
         goods_id = #{goodsId,jdbcType=INTEGER},
       </if>
       <if test="userId != null" >
@@ -132,7 +138,7 @@
         last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where number = #{number,jdbcType=VARCHAR}
+    where `number` = #{number,jdbcType=VARCHAR}
   </update>
   <update id="updateOrder" parameterType="com.group.shop.entity.Order" >
     update tb_order set 
@@ -145,4 +151,27 @@
       last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP}
     where number = #{number,jdbcType=VARCHAR}
   </update>
+
+  <select id="getOrderVoList" resultMap="BaseResultMapVo" parameterType="com.group.shop.vo.OrderVo">
+    select
+    <include refid="Base_Column_List" />
+    from tb_order
+    <where>
+      <if test="number != null">
+        `number` = #{number,jdbcType=VARCHAR}
+      </if>
+      <if test="goods != null and goods.id != null" >
+        and goods_id = #{goods.id,jdbcType=INTEGER}
+      </if>
+      <if test="user != null and user.id != null" >
+        and user_id = #{user.id,jdbcType=INTEGER}
+      </if>
+      <if test="shop != null and shop.id != null" >
+        and shop_id = #{shop.id,jdbcType=INTEGER}
+      </if>
+      <if test="status != null" >
+        and status = #{status,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
 </mapper>

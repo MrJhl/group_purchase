@@ -12,12 +12,12 @@ public class AddrHandler {
 
     private static String uploadImgLinuxUrl;
 
-    @Value("${linux.file.upload.image}")
+    @Value("${win.file.upload.image}")
     public void setUploadImgWinUrl(String uploadImgWinUrl) {
         AddrHandler.uploadImgWinUrl = uploadImgWinUrl;
     }
 
-    @Value("${win.file.upload.image}")
+    @Value("${linux.file.upload.image}")
     public void setUploadImgLinuxUrl(String uploadImgLinuxUrl) {
         AddrHandler.uploadImgLinuxUrl = uploadImgLinuxUrl;
     }

@@ -3,6 +3,9 @@ package com.group.shop.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.group.shop.vo.OrderVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +83,20 @@ public class OrderServiceImpl implements OrderService {
 			log.error(e.getMessage());
 			throw new GirlException(ResultEnum.SYS_EXCEPTION);
 		}
+	}
+
+	@Override
+	public PageInfo<OrderVo> limitOrderVo(OrderVo orderVo, Integer pageIndex, Integer pageSize) {
+
+		PageHelper.startPage(pageIndex,pageSize);
+		List<OrderVo> orderVoList;
+		try {
+			orderVoList = orderMapper.getOrderVoList(orderVo);
+		}catch (Exception e){
+			log.error(e.getMessage());
+			throw new GirlException(ResultEnum.SYS_EXCEPTION);
+		}
+		return new PageInfo<>(orderVoList);
 	}
 
 }

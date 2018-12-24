@@ -1,7 +1,8 @@
 package com.group.shop.controller;
 
-import com.group.shop.config.file.FileNameUtils;
+import com.group.shop.common.Result;
 import com.group.shop.utils.AddrHandler;
+import com.group.shop.utils.FileNameUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,10 +25,10 @@ public class FileController {
      * @return
      */
     @PostMapping(value = "/upload")
-    public String upload(@RequestParam("/file") MultipartFile file) {
+    public Result<String> upload(MultipartFile file) {
         try {
             if (file.isEmpty()) {
-                return "文件为空";
+                return Result.errorMsg("文件为空");
             }
             // 获取文件名
             String fileName = FileNameUtils.getFileName(file.getOriginalFilename());
@@ -37,7 +39,7 @@ public class FileController {
 
             // 设置文件存储路径
             String filePath = AddrHandler.getImgBasePath();
-            String path = filePath + fileName + suffixName;
+            String path = filePath + fileName;
 
             File dest = new File(path);
             // 检测是否存在目录
@@ -45,39 +47,40 @@ public class FileController {
                 dest.getParentFile().mkdirs();// 新建文件夹
             }
             file.transferTo(dest);// 文件写入
-            return "上传成功";
+            return Result.success(path);
         } catch (IllegalStateException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "上传失败";
+        return Result.errorMsg("上传失败");
     }
 
     /**
      * 多文件上传
-     * @param request
+     * @param files
      * @return
      */
-    @PostMapping(value = "/uploadmore")
-    public String handleFileUpload(HttpServletRequest request) {
-        List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
+    @PostMapping(value = "/list")
+    public Result<Object> handleFileUpload(MultipartFile files[]) {
         MultipartFile file = null;
+        List<String> stringList = new ArrayList<>();
         BufferedOutputStream stream = null;
-        for (int i = 0; i < files.size(); ++i) {
-            file = files.get(i);
+        for (int i = 0; i < files.length; ++i) {
+            file = files[i];
             String filePath = AddrHandler.getImgBasePath();
             if (!file.isEmpty()) {
                 try {
                     byte[] bytes = file.getBytes();
+                    String fullPath = filePath + FileNameUtils.getFileName(file.getOriginalFilename());
                     stream = new BufferedOutputStream(new FileOutputStream(
-                            new File(filePath + FileNameUtils.getFileName(file.getOriginalFilename()))));//设置文件路径及名字
+                            new File(fullPath)));//设置文件路径及名字
                     stream.write(bytes);// 写入
-
+                    stringList.add(fullPath);
                 } catch (Exception e) {
                     stream = null;
-                    return "第 " + i + " 个文件上传失败  ==> "
-                            + e.getMessage();
+                    log.error( "第 " + i + " 个文件上传失败  ==> "
+                            + e.getMessage());
                 }finally {
                     try {
                         stream.close();
@@ -86,11 +89,10 @@ public class FileController {
                     }
                 }
             } else {
-                return "第 " + i
-                        + " 个文件上传失败因为文件为空";
+                return Result.errorMsg("第 " + i + " 个文件上传失败因为文件为空") ;
             }
         }
-        return "上传成功";
+        return Result.success(stringList);
     }
 
     /**
@@ -143,5 +145,24 @@ public class FileController {
             }
         }
         return null;
+    }
+
+    /**
+     * 移除文件
+     * @param fileName
+     * @return
+     */
+    @DeleteMapping(value = "/remove",produces = {"application/json;charset=UTF-8"})
+    public Result<Boolean> removeFile(@RequestParam(value = "fileName",required = true)String fileName){
+        File file = new File(fileName);
+        if(file.exists() && file.isFile()){
+            if(file.delete()){
+                return Result.success(true);
+            }else{
+                return Result.errorMsg("删除图片失败！");
+            }
+        }else{
+            return Result.errorMsg("不存在改图片！");
+        }
     }
 }

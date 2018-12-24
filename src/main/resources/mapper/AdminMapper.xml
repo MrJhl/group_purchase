@@ -9,14 +9,15 @@
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="gender" property="gender" jdbcType="BIT" />
     <result column="real_name" property="realName" jdbcType="VARCHAR" />
-    <result column="user_status" property="userStatus" jdbcType="BIT" />
-    <result column="user_type" property="userType" jdbcType="BIT" />
+    <result column="user_status" property="userStatus" jdbcType="INTEGER" />
+    <result column="user_type" property="userType" jdbcType="INTEGER" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
   </resultMap>
 
   <sql id="Base_Column_List" >
-    id, username, password, phone, email, gender, real_name, user_status, user_type, 
+    id, username, password, phone, email, gender, real_name, user_status, user_type, shop_id,
     create_time, last_edit_time
   </sql>
 
@@ -35,11 +36,11 @@
   <insert id="insertAdmin" parameterType="com.group.shop.entity.Admin" >
     insert into tb_admin (id, username, password, 
       phone, email, gender, real_name, 
-      user_status, user_type, create_time, 
+      user_status, user_type, shop_id, create_time,
       last_edit_time)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{gender,jdbcType=BIT}, #{realName,jdbcType=VARCHAR}, 
-      #{userStatus,jdbcType=BIT}, #{userType,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{userStatus,jdbcType=INTEGER}, #{userType,jdbcType=INTEGER},#{shopId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
       #{lastEditTime,jdbcType=TIMESTAMP})
   </insert>
 
@@ -73,6 +74,9 @@
       <if test="userType != null" >
         user_type,
       </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
       <if test="createTime != null" >
         create_time,
       </if>
@@ -103,10 +107,13 @@
         #{realName,jdbcType=VARCHAR},
       </if>
       <if test="userStatus != null" >
-        #{userStatus,jdbcType=BIT},
+        #{userStatus,jdbcType=INTEGER},
       </if>
       <if test="userType != null" >
-        #{userType,jdbcType=BIT},
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -139,10 +146,13 @@
         real_name = #{realName,jdbcType=VARCHAR},
       </if>
       <if test="userStatus != null" >
-        user_status = #{userStatus,jdbcType=BIT},
+        user_status = #{userStatus,jdbcType=INTEGER},
       </if>
       <if test="userType != null" >
-        user_type = #{userType,jdbcType=BIT},
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -161,8 +171,9 @@
       email = #{email,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=BIT},
       real_name = #{realName,jdbcType=VARCHAR},
-      user_status = #{userStatus,jdbcType=BIT},
-      user_type = #{userType,jdbcType=BIT},
+      user_status = #{userStatus,jdbcType=INTEGER},
+      user_type = #{userType,jdbcType=INTEGER},
+      shop_id = #{shopId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
