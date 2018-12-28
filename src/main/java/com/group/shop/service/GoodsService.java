@@ -1,6 +1,5 @@
 package com.group.shop.service;
 
-import java.util.List;
 
 import com.github.pagehelper.PageInfo;
 import com.group.shop.entity.Goods;
