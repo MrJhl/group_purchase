@@ -21,6 +21,8 @@ public class Goods {
     
     private Integer setId;
 
+    private String photo;
+
     private Date createTime;
 
     private Date lastEditTime;

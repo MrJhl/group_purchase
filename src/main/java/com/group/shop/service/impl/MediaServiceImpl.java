@@ -78,4 +78,24 @@ public class MediaServiceImpl implements MediaService {
 
 	}
 
+	@Override
+	public Media insertMedia(Media media) {
+//		String url = media.getUrl();
+//		String suffix = FileNameUtils.getSuffix(url);
+		media.setType(0);
+		media.setCreateTime(new Date());
+		media.setLastEditTime(new Date());
+		int num;
+		try {
+			num = mediaMapper.insertMedia(media);
+		}catch (Exception e){
+			log.error(e.getMessage());
+			throw new GirlException(ResultEnum.SYS_EXCEPTION);
+		}
+		if(num > 0){
+			return media;
+		}
+		return null;
+	}
+
 }

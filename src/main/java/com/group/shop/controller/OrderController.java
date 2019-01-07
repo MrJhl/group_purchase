@@ -34,7 +34,7 @@ public class OrderController {
 	 * @param userId
 	 * @return
 	 */
-	@GetMapping(value="", produces= {"application/json; charset=UTF-8"})
+	@GetMapping(produces= {"application/json; charset=UTF-8"})
 	public Result<List<Order>> getUserOrderlist(@RequestParam(name="userId",required=true) int userId){
 		List<Order> orders = orderService.queryByUserId(userId);
 		if(orders != null) {
@@ -48,7 +48,7 @@ public class OrderController {
 	 * @param order
 	 * @return
 	 */
-	@PostMapping(value="", produces= {"application/json; charset=UTF-8"})
+	@PostMapping(produces= {"application/json; charset=UTF-8"})
 	public Result<Object> insertOrder(@RequestBody Order order){
 		if(orderService.insertOrder(order)) {
 			return Result.success(true);

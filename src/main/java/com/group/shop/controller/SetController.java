@@ -36,8 +36,9 @@ public class SetController {
      * @return
      */
     @GetMapping(value = "/setlist",produces = {"application/json;charset=UTF-8"})
-    public Result<Object> setList(){
+    public Result<Object> setList(@RequestParam(name = "name",required = false)String name){
         Set set = new Set();
+        set.setName(name);
         List<Set> setList = setService.getSetList(set);
         if(setList.size() > 0){
             return Result.success(setList);

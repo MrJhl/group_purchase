@@ -1,12 +1,17 @@
 package com.group.shop.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.group.shop.common.CodeMsg;
 import com.group.shop.common.Result;
 import com.group.shop.entity.Admin;
 import com.group.shop.service.AdminService;
+import com.group.shop.vo.AdminVo;
 import com.group.shop.vo.LoginInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/admin")
@@ -42,6 +47,33 @@ public class AdminController {
             return Result.success(true);
         }else{
             return Result.error(CodeMsg.FAIL);
+        }
+    }
+
+    /**
+     * 分页查询
+     * @param name
+     * @param pageIndex
+     * @param shopId
+     * @return
+     */
+    @GetMapping(value = "/limit",produces = {"application/json;charset=UTF-8"})
+    public Result<Object> limitAdmin(@RequestParam(name = "name",required = false)String name,
+                                     @RequestParam(name = "pageIndex",required = false,defaultValue = "1")Integer pageIndex,
+                                     @RequestParam(name = "pageSize",required = false,defaultValue = "20")Integer pageSize,
+                                     @RequestParam(name = "shopId",required = false)Integer shopId){
+        Admin admin = new Admin();
+        admin.setUsername(name);
+        admin.setShopId(shopId);
+        PageInfo<AdminVo> pageInfo = adminService.limitAdmin(admin,pageIndex,pageSize);
+
+        if(pageInfo.getTotal() > 0){
+            Map<String,Object> map = new HashMap<>();
+            map.put("total",pageInfo.getTotal());
+            map.put("data",pageInfo.getList());
+            return Result.success(map);
+        }else{
+            return Result.errorMsg("没有管理人员信息！");
         }
     }
 }

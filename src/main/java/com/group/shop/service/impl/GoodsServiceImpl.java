@@ -114,5 +114,22 @@ public class GoodsServiceImpl implements GoodsService {
 		return 0;
 	}
 
+	@Override
+	public boolean insetGoods(Goods goods) {
+		goods.setCreateTime(new Date());
+		goods.setLastEditTime(new Date());
+		int num;
+		try {
+			num = goodsMapper.insertSelective(goods);
+		}catch (Exception e){
+			log.error(e.getMessage());
+			throw new GirlException(ResultEnum.SYS_EXCEPTION);
+		}
+		if(num > 0){
+			return true;
+		}
+		return false;
+	}
+
 
 }

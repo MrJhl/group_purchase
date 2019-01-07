@@ -1,6 +1,8 @@
 package com.group.shop.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.group.shop.common.Constant;
 import com.group.shop.common.GirlException;
 import com.group.shop.common.ResultEnum;
@@ -9,6 +11,7 @@ import com.group.shop.mapper.AdminMapper;
 import com.group.shop.service.AdminService;
 import com.group.shop.utils.JwtTokenUtil;
 import com.group.shop.utils.MD5Util;
+import com.group.shop.vo.AdminVo;
 import com.group.shop.vo.LoginInfo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +23,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -105,5 +109,18 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public int deleteAdmin(Integer id) {
         return 0;
+    }
+
+    @Override
+    public PageInfo<AdminVo> limitAdmin(Admin admin, Integer pageIndex, Integer pageSize) {
+        PageHelper.startPage(pageIndex,pageSize);
+        List<AdminVo> adminVoList;
+        try {
+            adminVoList =adminMapper.getAdminList(admin);
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw new GirlException(ResultEnum.SYS_EXCEPTION);
+        }
+        return new PageInfo<>(adminVoList);
     }
 }

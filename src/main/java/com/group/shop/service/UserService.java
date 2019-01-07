@@ -1,5 +1,7 @@
 package com.group.shop.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.group.shop.common.Result;
 import com.group.shop.entity.User;
 
 import java.util.Map;
@@ -11,5 +13,12 @@ public interface UserService {
      * @param user
      * @return
      */
-    Map<String,Object> wechatLogin(User user);
+    String wechatLogin(JSONObject object);
+
+    /**
+     * 校验token是否有效
+     * @param token
+     * @return
+     */
+    Boolean verifyToken(String token);
 }

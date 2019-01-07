@@ -35,7 +35,12 @@ public class SetMediaServiceImpl implements SetMediaService {
     @Transactional
     public int insertSetMediaVo(SetMediaVo setMediaVo) {
         Set set = new Set();
-        set = setMediaVo.getSet();
+        set.setName(setMediaVo.getName());
+        set.setDescribe(setMediaVo.getDescribe());
+        set.setPrice(setMediaVo.getPrice());
+        set.setSalePrice(setMediaVo.getSalePrice());
+        set.setIndex(setMediaVo.getIndex());
+        set.setTotal(setMediaVo.getTotal());
         set.setLastEditTime(new Date());
         set.setCreateTime(new Date());
         int setNum;

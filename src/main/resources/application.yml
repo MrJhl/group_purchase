@@ -1,0 +1,90 @@
+#servlet配置
+server:
+  port: 8100 #指定端口
+  servlet:
+    context-path: /group #指定前缀
+  tomcat:
+    uri-encoding: UTF-8
+
+#Redis配置
+spring:
+  #Redis配置
+  redis:
+    database: 0 # Redis数据库索引（默认为0）
+    host: 47.107.140  # Redis服务器地址
+    port: 6379 # Redis服务器连接端口
+    password: . # Redis服务器连接密码（默认为空）
+    jedis:
+      pool:
+        max-wait: -1  # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
+        max-idle: 20 # 连接池中的最大空闲连接
+        min-idle: 0 # 连接池中的最小空闲连接
+
+  #HTTP配置
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+
+  #数据库配置
+  datasource:
+    url: jdbc:mysql://47.107.140:3306/group_purchase?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: .
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  jackson:
+    date-format: yyyy-MM-ss HH:mm:ss
+    time-zone: GMT+8
+
+  #文件上传的大小拦截
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+mybatis:
+  #指向实体类包路径
+  type-aliases-package: com.group.shop.entity
+  # mapper xml 文件地址
+  mapper-locations: classpath:mapper/*.xml
+  #检查mybatis 配置是否存在，一般命名为mybatis-comfig.xml
+  check-config-location: true
+  #执行模式。默认是SIMPLE
+  executor-type: simple
+
+
+#分页设置
+pagehelper:
+  auto-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+#打印mybatis的Sql语句
+logging:
+  level:
+    com.example.strobe.mapper: trace
+
+#文件上传路径
+linux.file.upload.image: /文件/shop/file/image/
+
+win.file.upload.image: D://shop/file/image/
+
+web:
+  upload-path: C:/Users/ASUS/Desktop/Photo/
+multipart:
+  maxRequestSize: 50Mb
+  maxFileSize: 50Mb
+
+#微信小程序配置文件
+wechat:
+  appId: wx3393b9469169a59a
+  secret: 2f9c5c3f1eeb039e19c4e1a1ab1110b1
+  mchId: 151111111
+  mchKey:
+  subAppId:
+  subMchId:
+  keyPath:

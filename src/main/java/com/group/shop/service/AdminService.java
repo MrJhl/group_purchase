@@ -1,6 +1,8 @@
 package com.group.shop.service;
 
+import com.github.pagehelper.PageInfo;
 import com.group.shop.entity.Admin;
+import com.group.shop.vo.AdminVo;
 import com.group.shop.vo.LoginInfo;
 
 public interface AdminService {
@@ -39,4 +41,13 @@ public interface AdminService {
      * @return
      */
     int deleteAdmin(Integer id);
+
+    /**
+     * 分页
+     * @param admin
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    PageInfo<AdminVo> limitAdmin(Admin admin, Integer pageIndex, Integer pageSize);
 }

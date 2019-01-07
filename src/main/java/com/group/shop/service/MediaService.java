@@ -14,5 +14,11 @@ public interface MediaService {
 	 * @return
 	 */
 	List<Media> saveMedia(MultipartFile file[]);
-	
+
+	/**
+	 * 上传文件
+	 * @param media
+	 * @return
+	 */
+    Media insertMedia(Media media);
 }

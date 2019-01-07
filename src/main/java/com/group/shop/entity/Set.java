@@ -23,6 +23,7 @@ public class Set {
     private Integer total;
 
     private Integer index;
+    private Integer del;
     
     private Date createTime;
 

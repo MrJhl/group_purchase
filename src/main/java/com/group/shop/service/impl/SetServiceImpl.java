@@ -102,6 +102,9 @@ public class SetServiceImpl implements SetService {
 
 	@Override
 	public List<Set> getSetList(Set set) {
+		if(set.getDel() == null){
+			set.setDel(0);
+		}
 		List<Set> setList;
 		try {
 			setList = setMapper.getSetList(set);

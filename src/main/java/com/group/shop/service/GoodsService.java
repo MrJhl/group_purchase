@@ -39,4 +39,11 @@ public interface GoodsService {
 	 * @return
 	 */
 	int updateGoodsRe(GoodsRe goodsRe);
+
+	/**
+	 * 插入商铺信息
+	 * @param goods
+	 * @return
+	 */
+    boolean insetGoods(Goods goods);
 }

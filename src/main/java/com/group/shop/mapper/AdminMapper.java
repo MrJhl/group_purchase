@@ -1,7 +1,10 @@
 package com.group.shop.mapper;
 
 import com.group.shop.entity.Admin;
+import com.group.shop.vo.AdminVo;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface AdminMapper {
@@ -51,4 +54,11 @@ public interface AdminMapper {
      * @return
      */
     Admin queryAdminByName(String username);
+
+    /**
+     * 查询列表
+     * @param admin
+     * @return
+     */
+    List<AdminVo> getAdminList(Admin admin);
 }

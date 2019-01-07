@@ -22,6 +22,7 @@
     from tb_shop
     where id = #{id,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteById" parameterType="java.lang.Integer" >
     delete from tb_shop
     where id = #{id,jdbcType=INTEGER}
@@ -118,4 +119,21 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getShopList" parameterType="com.group.shop.entity.Shop" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_shop
+    <where>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="name != null">
+        and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="num != null">
+        and num = #{num,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
 </mapper>

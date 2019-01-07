@@ -1,8 +1,10 @@
 package com.group.shop.service;
 
+import com.github.pagehelper.PageInfo;
 import com.group.shop.ShopApplicationTests;
 import com.group.shop.entity.Admin;
 import com.group.shop.mapper.AdminMapper;
+import com.group.shop.vo.AdminVo;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ public class AdminServiceTest extends ShopApplicationTests {
     private AdminService adminService;
 
     @Test
+    @Ignore
     public void testInsert(){
         Admin admin = new Admin();
         admin.setUsername("admin");
@@ -26,4 +29,10 @@ public class AdminServiceTest extends ShopApplicationTests {
         System.out.println(num);
     }
 
+    @Test
+    public void testLimit(){
+        Admin admin = new Admin();
+        PageInfo<AdminVo> pageInfo = adminService.limitAdmin(admin,1,20);
+        System.out.println(pageInfo.getTotal());
+    }
 }

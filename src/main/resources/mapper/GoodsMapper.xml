@@ -8,6 +8,7 @@
     <result column="standard" property="standard" jdbcType="VARCHAR" />
     <result column="sale_price" property="salePrice" jdbcType="DECIMAL" />
     <result column="set_id" property="setId" jdbcType="INTEGER" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -18,6 +19,7 @@
     <result column="describe" property="describe" jdbcType="VARCHAR" />
     <result column="standard" property="standard" jdbcType="VARCHAR" />
     <result column="sale_price" property="salePrice" jdbcType="DECIMAL" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
     <association property="set" column="{id=set_id}" select="com.group.shop.mapper.SetMapper.queryById"></association>
@@ -30,7 +32,7 @@
   </resultMap>
 	
   <sql id="Base_Column_List" >
-    id, name, `describe`, standard,sale_price, set_id, create_time, last_edit_time
+    id, name, `describe`, standard,sale_price, set_id, photo, create_time, last_edit_time
   </sql>
 
   <select id="queryById" resultMap="BaseResultMap">
@@ -46,11 +48,11 @@
 
   <insert id="insertGoods" parameterType="com.group.shop.entity.Goods" >
     insert into tb_goods (id, name, `describe`, 
-      standard, sale_price, set_id,
+      standard, sale_price, set_id,photo,
       create_time, last_edit_time)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, 
       #{standard,jdbcType=VARCHAR}, #{salePrice,jdbcType=DECIMAL},
-      #{setId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP})
+      #{setId,jdbcType=INTEGER},#{photo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.group.shop.entity.Goods" useGeneratedKeys="true" keyProperty="id">
     insert into tb_goods
@@ -72,6 +74,9 @@
       </if>
       <if test="setId != null" >
         set_id,
+      </if>
+      <if test="photo != null" >
+        photo,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -98,6 +103,9 @@
       </if>
       <if test="setId != null" >
         #{setId,jdbcType=INTEGER},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -126,6 +134,9 @@
       <if test="setId != null" >
         set_id = #{setId,jdbcType=INTEGER},
       </if>
+      <if test="photo != null" >
+        photo = #{photo,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -142,6 +153,7 @@
       standard = #{standard,jdbcType=VARCHAR},
       sale_price = #{salePrice,jdbcType=DECIMAL},
       set_id = #{setId,jdbcType=INTEGER},
+      photo = #{photo,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

@@ -37,7 +37,6 @@ public class MediaController {
 	//上传照片
 	@PostMapping()
 	public Result<List<Media>> insertPhotoAndUrl(@RequestParam(name = "fileName") MultipartFile file[]){
-		System.out.println("####");
        List<Media> mediaIds = mediaService.saveMedia(file);
        if(!mediaIds.isEmpty()){
            return Result.success(mediaIds);

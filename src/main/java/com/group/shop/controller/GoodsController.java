@@ -64,12 +64,12 @@ public class GoodsController {
 	}
 	//根据goods添加单个商品信息
 	@PostMapping(produces = {"application/json;charset=UTF-8"})
-	public Result<Object> insertGoods(@RequestBody GoodsInfo goodsInfo){
-			if(goodsService.insertSelective(goodsInfo)){
-	            return Result.success(CodeMsg.SUCCESS);
-	        }else{
-	            return Result.error(CodeMsg.FAIL);
-	        }
+	public Result<Object> insertGoods(@RequestBody Goods goods){
+		if(goodsService.insetGoods(goods)){
+			return Result.success(CodeMsg.SUCCESS);
+		}else{
+			return Result.error(CodeMsg.FAIL);
+		}
 	}
 	//根据修改后的goods更新单个商品信息
 	@PutMapping(produces = {"application/json;charset=UTF-8"})
@@ -99,7 +99,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@GetMapping(value = "/limit",produces = {"application/json;charset=UTF-8"})
-	public Result<Object> limitGoods(@RequestParam(name = "name")String name,
+	public Result<Object> limitGoods(@RequestParam(name = "name",required = false)String name,
 									 @RequestParam(name="pageSize",required = false,defaultValue = "20")Integer pageSize,
 									 @RequestParam(name="pageIndex",required = false,defaultValue = "0")Integer pageIndex){
 		Goods goods = new Goods();

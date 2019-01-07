@@ -22,6 +22,8 @@ public class GoodsVo {
 
     private Set set;
 
+    private String photo;
+
     private Date createTime;
 
     private Date lastEditTime;

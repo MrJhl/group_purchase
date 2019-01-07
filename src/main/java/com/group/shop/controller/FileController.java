@@ -1,9 +1,12 @@
 package com.group.shop.controller;
 
 import com.group.shop.common.Result;
+import com.group.shop.entity.Media;
+import com.group.shop.service.MediaService;
 import com.group.shop.utils.AddrHandler;
 import com.group.shop.utils.FileNameUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -18,6 +21,9 @@ import java.util.List;
 @RequestMapping(value = "/file")
 @Slf4j
 public class FileController {
+
+    @Autowired
+    private MediaService mediaService;
 
     /**
      * 单个文件上传
@@ -48,6 +54,49 @@ public class FileController {
             }
             file.transferTo(dest);// 文件写入
             return Result.success(path);
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Result.errorMsg("上传失败");
+    }
+
+    /**
+     * 上传图片，写入数据库
+     * @param file
+     * @return
+     */
+    @PostMapping(value = "/setupload")
+    public Result<Object> uploadSetMedia(MultipartFile file){
+        try {
+            if (file.isEmpty()) {
+                return Result.errorMsg("文件为空");
+            }
+            // 获取文件名
+            String fileName = FileNameUtils.getFileName(file.getOriginalFilename());
+            log.info("上传的文件名为：" + fileName);
+            // 获取文件的后缀名
+            String suffixName = fileName.substring(fileName.lastIndexOf("."));
+            log.info("文件的后缀名为：" + suffixName);
+
+            // 设置文件存储路径
+            String filePath = AddrHandler.getImgBasePath();
+            String path = filePath + fileName;
+
+            File dest = new File(path);
+            // 检测是否存在目录
+            if (!dest.getParentFile().exists()) {
+                dest.getParentFile().mkdirs();// 新建文件夹
+            }
+            file.transferTo(dest);// 文件写入
+            Media media = new Media();
+            media.setUrl(path);
+            Media m = mediaService.insertMedia(media);
+            if(m == null){
+                return Result.errorMsg("上传图片失败！");
+            }
+            return Result.success(m);
         } catch (IllegalStateException e) {
             e.printStackTrace();
         } catch (IOException e) {

@@ -24,7 +24,8 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertMedia" parameterType="com.group.shop.entity.Media" >
+  <insert id="insertMedia" parameterType="com.group.shop.entity.Media"
+          useGeneratedKeys="true" keyColumn="id" keyProperty="id">
     insert into tb_media (id, url, type,
      create_time, last_edit_time
       )
