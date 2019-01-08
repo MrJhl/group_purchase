@@ -18,7 +18,7 @@ import com.group.shop.entity.Media;
 import com.group.shop.service.MediaService;
 
 /**
- * @deprecated 商品操作控制层
+ *  商品操作控制层
  * @author Jin
  * @Data 2018/12/04
  */

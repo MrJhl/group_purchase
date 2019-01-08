@@ -23,7 +23,7 @@ import com.group.shop.service.GoodsService;
 import com.group.shop.vo.GoodsUrl;
 
 /**
- * @deprecated 商品操作控制层
+ *  商品操作控制层
  * @author Jin
  * @Data 2018/12/04
  */
