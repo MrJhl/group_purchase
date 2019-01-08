@@ -1,6 +1,7 @@
 package com.group.shop.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.group.shop.common.CodeMsg;
 import com.group.shop.common.Constant;
 import com.group.shop.common.Result;
 import com.group.shop.config.wxconfig.WxPayProperties;
@@ -23,6 +24,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 微信登录
+     * @param reqbody
+     * @return
+     */
     @PostMapping(value = "/code",produces = {"application/json;charset=UTF-8"})
     public Result<Object> wechatLogin(@RequestBody Map<String,String> reqbody){
         String code = reqbody.get("code");
@@ -37,9 +43,31 @@ public class UserController {
         }
     }
 
+    /**
+     * 校验token
+     * @param reqbody
+     * @return
+     */
     @PostMapping(value = "/verifyToken",produces = {"application/json;charset=UTF-8"})
     public Result<Boolean> verifyToken(@RequestBody Map<String,String> reqbody){
         String token = reqbody.get("token");
         return Result.success(userService.verifyToken(token));
+    }
+    
+    /**
+     * 新增用户
+     * @param user
+     * @return
+     */
+    @PostMapping(value = "regist",produces = {"application/json;charset=UTF-8"})
+    public Result<Object> registUser(@RequestBody User user){
+    	int flag = userService.insertUser(user);
+    	if(flag == 1) {
+    		return Result.success(true);
+    	}else if(flag == -1){
+    		return Result.errorMsg("存在该用户");
+    	}else {
+    		return Result.error(CodeMsg.FAIL);
+    	}
     }
 }

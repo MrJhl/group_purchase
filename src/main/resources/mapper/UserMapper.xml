@@ -140,6 +140,23 @@
       <if test="openId != null">
         and open_id = #{openId,jdbcType=VARCHAR}
       </if>
+      <if test="username != null">
+      	and username = #{username,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null" >
+        and phone = #{phone,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  
+  <select id="queryUserByNameOrphone" resultMap="BaseResultMap" parameterType="com.group.shop.entity.User" >
+  	select
+  	<include refid="Base_Column_List"/>
+  	from tb_user
+  	 <where>
+      <if test="username != null">
+      	and username = #{username,jdbcType=VARCHAR}
+      </if>
       <if test="phone != null" >
         and phone = #{phone,jdbcType=VARCHAR}
       </if>

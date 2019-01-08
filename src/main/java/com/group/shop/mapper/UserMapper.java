@@ -22,4 +22,11 @@ public interface UserMapper {
      * @return
      */
     User queryByUser(User user);
+    
+    /**
+     * 根据名字或者手机号码获取用户
+     * @param username
+     * @return
+     */
+    User queryUserByNameOrphone(User user);
 }

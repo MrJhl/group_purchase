@@ -21,4 +21,11 @@ public interface UserService {
      * @return
      */
     Boolean verifyToken(String token);
+    
+    /**
+     * 添加用户
+     * @param user
+     * @return
+     */
+    int insertUser(User user);
 }

@@ -1,7 +1,6 @@
 package com.group.shop.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.github.pagehelper.PageInfo;
@@ -21,7 +20,6 @@ import com.group.shop.common.CodeMsg;
 import com.group.shop.common.Result;
 import com.group.shop.entity.Goods;
 import com.group.shop.service.GoodsService;
-import com.group.shop.vo.GoodsInfo;
 import com.group.shop.vo.GoodsUrl;
 
 /**

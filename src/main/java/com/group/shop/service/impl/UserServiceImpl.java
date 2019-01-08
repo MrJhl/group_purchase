@@ -9,6 +9,7 @@ import com.group.shop.entity.User;
 import com.group.shop.mapper.UserMapper;
 import com.group.shop.service.UserService;
 import com.group.shop.utils.JwtTokenUtil;
+import com.group.shop.utils.MD5Util;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -71,4 +72,30 @@ public class UserServiceImpl implements UserService {
         }
         return true;
     }
+
+	@Override
+	public int insertUser(User user) {
+		User usr;
+		try {
+			usr = userMapper.queryUserByNameOrphone(user);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+            throw new GirlException(ResultEnum.SYS_EXCEPTION);
+		}
+		if(usr != null) {
+			return -1;
+		}
+		user.setOpenId(MD5Util.MD5(user.getOpenId()));
+		user.setCreateTime(new Date());
+		user.setLastEditTime(new Date());
+		int insertNum;
+		try {
+			insertNum = userMapper.insertUser(user);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+            throw new GirlException(ResultEnum.SYS_EXCEPTION);
+		}
+		
+		return insertNum;
+	}
 }
